@@ -4,4 +4,6 @@ import com.example.badmintonapi.domain.User;
 
 public interface UserService {
     public int add(User user);
+
+    public boolean select(User user);
 }

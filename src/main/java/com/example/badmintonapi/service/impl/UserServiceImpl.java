@@ -17,4 +17,14 @@ public class UserServiceImpl implements UserService {
         int id = user.getId();
         return id;
     }
+
+    @Override
+    public boolean select(User user) {
+        User u = userMapper.select(user);
+
+        System.out.println(u);
+        return true;
+    }
+
+
 }

@@ -22,4 +22,16 @@ public class UserController {
 
         return "add success";
     }
+
+    @GetMapping("select")
+    public String select() {
+        User user = new User();
+        user.setUsername("kkk");
+        user.setPassword("kkk");
+        if(userService.select(user)) {
+            return "success";
+        }else {
+            return "false";
+        }
+    }
 }
