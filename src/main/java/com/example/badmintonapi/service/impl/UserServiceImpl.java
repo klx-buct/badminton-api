@@ -21,9 +21,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean select(User user) {
         User u = userMapper.select(user);
-
-        System.out.println(u);
-        return true;
+        if(u == null) {
+            return false;
+        }else {
+            return true;
+        }
     }
 
 
