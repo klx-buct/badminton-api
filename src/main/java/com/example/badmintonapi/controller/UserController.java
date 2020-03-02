@@ -5,10 +5,10 @@ import com.example.badmintonapi.service.TokenService;
 import com.example.badmintonapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/user")
@@ -30,7 +30,9 @@ public class UserController {
     }
 
     @PostMapping("login")
-    public boolean select(String username, String password) {
+    public boolean select(@RequestBody Map<String, String> params) {
+        String username = params.get("username");
+        String password = params.get("password");
         String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());
         User user = new User();
         user.setUsername(username);
