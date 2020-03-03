@@ -17,15 +17,17 @@ import java.util.Map;
 
 @Service
 public class TokenServiceImpl implements TokenService {
-    private final long EXPIRE_TIME = 15 * 60 * 1000;
+    private final long EXPIRE_TIME = 60 * 60 * 1000;
+
+    private final long LONG_EXPIRE_TIME = 60 * 60 * 1000 * 24 * 7;
 
     private final String TOKEN_SECRET = "badminton";
 
     @Override
-    public String initToken(String username, String password) {
+    public String initToken(String username, String password, boolean remember) {
         try {
             // 设置过期时间
-            Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
+            Date date = new Date(System.currentTimeMillis() + (remember ? LONG_EXPIRE_TIME : EXPIRE_TIME));
             // 私钥和加密算法
             Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
             // 设置头部信息

@@ -16,7 +16,8 @@ public class LoginIntercpter implements HandlerInterceptor {
 //        response.setStatus(403);
 //        PrintWriter writer = response.getWriter();
 
-
+        String access_token = request.getHeader("access_token");
+        System.out.println(access_token);
         return true;
     }
 

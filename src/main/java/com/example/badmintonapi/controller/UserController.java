@@ -1,5 +1,6 @@
 package com.example.badmintonapi.controller;
 
+import com.example.badmintonapi.domain.Response;
 import com.example.badmintonapi.domain.User;
 import com.example.badmintonapi.service.TokenService;
 import com.example.badmintonapi.service.UserService;
@@ -8,6 +9,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -30,21 +32,32 @@ public class UserController {
     }
 
     @PostMapping("login")
-    public boolean select(@RequestBody Map<String, String> params) {
+    public Response select(@RequestBody Map<String, String> params) {
+        Response response = new Response();
+        Map message = new HashMap();
+
         String username = params.get("username");
         String password = params.get("password");
+        boolean remember = Boolean.parseBoolean(params.get("remember"));
         String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());
         User user = new User();
         user.setUsername(username);
         user.setPassword(md5Password);
+
         boolean result = userService.select(user);
         if(result) {
-            String token = tokenService.initToken(username, md5Password);
+            String token = tokenService.initToken(username, md5Password, remember);
             tokenService.getUser(token);
+            message.put("token", token);
+            message.put("result", true);
         }else {
-
+            message.put("result", false);
         }
 
-        return result;
+
+        response.setCode(0);
+        response.setMessage(message);
+
+        return response;
     }
 }

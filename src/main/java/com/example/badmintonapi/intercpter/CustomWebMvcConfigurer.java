@@ -10,13 +10,13 @@ public class CustomWebMvcConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginIntercpter()).addPathPatterns("/api/*/**");
+        registry.addInterceptor(new LoginIntercpter()).addPathPatterns("/api/*/**").excludePathPatterns("/api/user/login");
     }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/*/**")
-                .allowedHeaders("*")
+                .allowedHeaders("access_token")
                 .allowedOrigins("*")
                 .allowedMethods("*");
     }
