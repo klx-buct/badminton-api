@@ -8,4 +8,6 @@ public interface MatchService {
     public Match[] getMatchByStatus(int status);
 
     public Match[] getMatchByKeywords(String name);
+
+    public Match getMatchById(int id);
 }

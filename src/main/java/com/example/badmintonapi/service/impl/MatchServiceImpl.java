@@ -26,4 +26,9 @@ public class MatchServiceImpl implements MatchService {
     public Match[] getMatchByKeywords(String name) {
         return matchMapper.getMatchByKeywords(name);
     }
+
+    @Override
+    public Match getMatchById(int id) {
+        return matchMapper.getMatchById(id);
+    }
 }

@@ -47,4 +47,15 @@ public class MatchController {
         response.setMessage(message);
         return response;
     }
+
+    @GetMapping("detail")
+    public Response getMatchById(int id) {
+        Response response = new Response();
+        response.setCode(0);
+        Map message = new HashMap();
+        Match match = matchService.getMatchById(id);
+        message.put("detail", match);
+        response.setMessage(message);
+        return response;
+    }
 }

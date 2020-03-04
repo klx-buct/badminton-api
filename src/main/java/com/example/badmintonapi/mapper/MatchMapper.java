@@ -17,4 +17,7 @@ public interface MatchMapper {
 
     @Select("select * from `match` where name like concat('%', #{name}, '%')")
     Match[] getMatchByKeywords(String name);
+
+    @Select("select * from `match` where id = #{id}")
+    Match getMatchById(int id);
 }
