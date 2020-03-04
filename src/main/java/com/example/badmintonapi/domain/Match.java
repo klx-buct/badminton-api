@@ -29,6 +29,26 @@ public class Match {
 
     private int hintCount;
 
+    private int status;
+
+    private String time;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     public int getId() {
         return id;
     }

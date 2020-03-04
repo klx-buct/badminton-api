@@ -4,11 +4,9 @@ import com.example.badmintonapi.domain.Match;
 import com.example.badmintonapi.domain.Response;
 import com.example.badmintonapi.service.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +26,25 @@ public class MatchController {
 
         response.setMessage(message);
 
+        return response;
+    }
+
+    @GetMapping("list")
+    public Response getMatch(int status, int pageSize, int pageIndex, String keywords) {
+        Match[] match;
+        if(keywords.equals("")) {
+            match = matchService.getMatchByStatus(status);
+        }else {
+            match = matchService.getMatchByKeywords(keywords);
+            System.out.println(match);
+        }
+        Response response = new Response();
+        response.setCode(0);
+        Map message = new HashMap();
+        int total = match.length;
+        message.put("matchList", Arrays.copyOfRange(match, pageSize*(pageIndex-1), pageSize*(pageIndex-1) + pageSize > total ? total : pageSize*(pageIndex-1) + pageSize));
+        message.put("total", total);
+        response.setMessage(message);
         return response;
     }
 }

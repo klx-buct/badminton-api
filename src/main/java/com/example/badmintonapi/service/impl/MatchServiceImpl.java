@@ -16,4 +16,14 @@ public class MatchServiceImpl implements MatchService {
         int insert = matchMapper.insert(match);
         return insert == 1 ? true : false;
     }
+
+    @Override
+    public Match[] getMatchByStatus(int status) {
+        return matchMapper.getMatchByStatus(status);
+    }
+
+    @Override
+    public Match[] getMatchByKeywords(String name) {
+        return matchMapper.getMatchByKeywords(name);
+    }
 }
