@@ -16,7 +16,7 @@ public class CustomWebMvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/*/**")
-                .allowedHeaders("access_token")
+                .allowedHeaders("*")
                 .allowedOrigins("*")
                 .allowedMethods("*");
     }
