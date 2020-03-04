@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/usfer")
+@RequestMapping("api/user")
 public class UserController {
     @Autowired
     private UserService userService;
