@@ -33,6 +33,36 @@ public class Match {
 
     private String time;
 
+    private int isTeamUp;
+
+    private int teamUpLimit;
+
+    private String enterId;
+
+    public int getIsTeamUp() {
+        return isTeamUp;
+    }
+
+    public void setIsTeamUp(int isTeamUp) {
+        this.isTeamUp = isTeamUp;
+    }
+
+    public int getTeamUpLimit() {
+        return teamUpLimit;
+    }
+
+    public void setTeamUpLimit(int teamUpLimit) {
+        this.teamUpLimit = teamUpLimit;
+    }
+
+    public String getEnterId() {
+        return enterId;
+    }
+
+    public void setEnterId(String enterId) {
+        this.enterId = enterId;
+    }
+
     public int getStatus() {
         return status;
     }

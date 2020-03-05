@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Select;
 public interface MatchMapper {
     @Insert(
     "insert into " +
-            "`match`(name, introduce, address, prize, begTime, endTime, `limit`, limitPeople, actualPlayer, player, referee, actualReferee, hintCount, status, time) " +
-            "values(#{name}, #{introduce}, #{address}, #{prize}, #{begTime}, #{endTime}, #{limit}, #{limitPeople}, #{actualPlayer}, #{player}, #{referee}, #{actualReferee}, #{hintCount}, #{status}, #{time})"
+            "`match`(name, introduce, address, prize, begTime, endTime, `limit`, limitPeople, actualPlayer, player, referee, actualReferee, hintCount, status, time, isTeamUp, teamUpLimit, enterId) " +
+            "values(#{name}, #{introduce}, #{address}, #{prize}, #{begTime}, #{endTime}, #{limit}, #{limitPeople}, #{actualPlayer}, #{player}, #{referee}, #{actualReferee}, #{hintCount}, #{status}, #{time}, #{isTeamUp}, #{teamUpLimit}, #{enterId})"
     )
     int insert(Match match);
 
