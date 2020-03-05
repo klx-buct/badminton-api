@@ -31,4 +31,10 @@ public class MatchServiceImpl implements MatchService {
     public Match getMatchById(int id) {
         return matchMapper.getMatchById(id);
     }
+
+    @Override
+    public boolean updateMatch(Match match) {
+        int res = matchMapper.updateMatch(match);
+        return res == 1 ? true : false;
+    }
 }

@@ -29,6 +29,19 @@ public class MatchController {
         return response;
     }
 
+    @PostMapping("updateMatch")
+    public Response updateMatch(@RequestBody Match match) {
+        boolean res = this.matchService.updateMatch(match);
+        Response response = new Response();
+        response.setCode(0);
+        Map message = new HashMap();
+        message.put("result", res);
+
+        response.setMessage(message);
+
+        return response;
+    }
+
     @GetMapping("list")
     public Response getMatch(int status, int pageSize, int pageIndex, String keywords) {
         Match[] match;
@@ -36,7 +49,6 @@ public class MatchController {
             match = matchService.getMatchByStatus(status);
         }else {
             match = matchService.getMatchByKeywords(keywords);
-            System.out.println(match);
         }
         Response response = new Response();
         response.setCode(0);

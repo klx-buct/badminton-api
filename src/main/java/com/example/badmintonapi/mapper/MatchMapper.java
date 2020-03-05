@@ -3,6 +3,7 @@ package com.example.badmintonapi.mapper;
 import com.example.badmintonapi.domain.Match;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface MatchMapper {
     @Insert(
@@ -20,4 +21,7 @@ public interface MatchMapper {
 
     @Select("select * from `match` where id = #{id}")
     Match getMatchById(int id);
+
+    @Update("update `match` set name=#{name}, introduce=#{introduce}, address=#{address}, prize=#{prize}, begTime=#{begTime}, endTime=#{endTime}, `limit`=#{limit}, limitPeople=#{limitPeople}, player=#{player}, referee=#{referee}, isTeamUp=#{isTeamUp}, teamUpLimit=#{teamUpLimit} where id=#{id}")
+    int updateMatch(Match match);
 }

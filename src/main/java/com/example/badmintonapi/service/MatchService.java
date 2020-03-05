@@ -10,4 +10,6 @@ public interface MatchService {
     public Match[] getMatchByKeywords(String name);
 
     public Match getMatchById(int id);
+
+    public boolean updateMatch(Match match);
 }
