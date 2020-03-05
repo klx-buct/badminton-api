@@ -9,6 +9,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,6 +59,47 @@ public class UserController {
         response.setCode(0);
         response.setMessage(message);
 
+        return response;
+    }
+
+    @GetMapping("list")
+    public Response getAllUser() {
+        Response response = new Response();
+        User[] users = this.userService.getAllUser();
+        response.setCode(0);
+        Map message = new HashMap();
+        message.put("total", users.length);
+        int refereeNum = 0;
+        int memberNum = 0;
+        for(int i = 0, len = users.length; i < len; i++) {
+            User user = users[i];
+            if(user.getReferee() == 1) {
+                refereeNum++;
+            }
+            if(user.getMember() == 1) {
+                memberNum++;
+            }
+        }
+        message.put("refereeNum", refereeNum);
+        message.put("memberNum", memberNum);
+        response.setMessage(message);
+        return response;
+    }
+
+    @GetMapping("page")
+    public Response getPageUser(int member, String keywords, int pageIndex, int pageSize) {
+        Response response = new Response();
+        User[] users;
+        if(member == 2) {
+            users = userService.getUsersByKeywords(keywords);
+        }else {
+            users = userService.getUsersByMember(member, keywords);
+        }
+        int total = users.length;
+        Map message = new HashMap();
+        message.put("total", total);
+        message.put("userList",Arrays.copyOfRange(users, pageSize*(pageIndex-1), pageSize*(pageIndex-1) + pageSize > total ? total : pageSize*(pageIndex-1) + pageSize));
+        response.setMessage(message);
         return response;
     }
 }

@@ -12,4 +12,13 @@ public interface UserMapper {
 
     @Select("select * from user where username=#{username} and password=#{password}")
     User select(User user);
+
+    @Select("select * from `user-detail`")
+    User[] getAllUser();
+
+    @Select("select * from `user-detail` where name like concat('%', #{name}, '%')")
+    User[] getUsersByKeywords(String name);
+
+    @Select("select * from `user-detail` where member=#{member} and name like concat('%', #{name}, '%')")
+    User[] getUsersByMember(int member, String name);
 }
