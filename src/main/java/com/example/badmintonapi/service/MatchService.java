@@ -12,4 +12,6 @@ public interface MatchService {
     public Match getMatchById(int id);
 
     public boolean updateMatch(Match match);
+
+    public boolean updateMatchEnterid(String enterId, int id);
 }

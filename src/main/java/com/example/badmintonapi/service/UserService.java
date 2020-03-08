@@ -12,4 +12,8 @@ public interface UserService {
     public User[] getUsersByKeywords(String name);
 
     public User[] getUsersByMember(int member, String name);
+
+    public User getUserBySchoolNumber(String schoolNumber);
+
+    public boolean updateJoinMatch(String joinMatch, int id);
 }

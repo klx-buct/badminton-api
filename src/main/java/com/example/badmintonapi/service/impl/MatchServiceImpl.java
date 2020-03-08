@@ -37,4 +37,10 @@ public class MatchServiceImpl implements MatchService {
         int res = matchMapper.updateMatch(match);
         return res == 1 ? true : false;
     }
+
+    @Override
+    public boolean updateMatchEnterid(String enterId, int id) {
+        int result = this.matchMapper.updateMatchEnterid(enterId, id);
+        return result == 1 ? true : false;
+    }
 }

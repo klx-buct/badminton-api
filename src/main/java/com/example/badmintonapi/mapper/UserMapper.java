@@ -4,6 +4,7 @@ import com.example.badmintonapi.domain.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface UserMapper {
     @Insert("INSERT INTO user(username, password) VALUES(#{username}, #{password})")
@@ -21,4 +22,10 @@ public interface UserMapper {
 
     @Select("select * from `user-detail` where member=#{member} and name like concat('%', #{name}, '%')")
     User[] getUsersByMember(int member, String name);
+
+    @Select("select * from `user-detail` where schoolNumber = #{schoolNumber}")
+    User getUserBySchoolNumber(String schoolNumber);
+
+    @Update("update `user-detail` set joinMatch=#{joinMatch} where id=#{id}")
+    boolean updateJoinMatch(String joinMatch, int id);
 }

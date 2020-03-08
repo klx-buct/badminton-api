@@ -43,5 +43,15 @@ public class UserServiceImpl implements UserService {
         return userMapper.getUsersByMember(member, name);
     }
 
+    @Override
+    public User getUserBySchoolNumber(String schoolNumber) {
+        return userMapper.getUserBySchoolNumber(schoolNumber);
+    }
+
+    @Override
+    public boolean updateJoinMatch(String joinMatch, int id) {
+        return userMapper.updateJoinMatch(joinMatch, id);
+    }
+
 
 }

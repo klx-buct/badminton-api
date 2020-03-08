@@ -35,6 +35,16 @@ public class User {
 
     private String introduce;
 
+    private String joinMatch;
+
+    public String getJoinMatch() {
+        return joinMatch;
+    }
+
+    public void setJoinMatch(String joinMatch) {
+        this.joinMatch = joinMatch;
+    }
+
     public String getSchoolNumber() {
         return schoolNumber;
     }
