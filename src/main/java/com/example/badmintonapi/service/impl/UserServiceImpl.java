@@ -53,5 +53,11 @@ public class UserServiceImpl implements UserService {
         return userMapper.updateJoinMatch(joinMatch, id);
     }
 
+    @Override
+    public boolean insertDetail(User user) {
+        int result = userMapper.insertDetail(user);
+        return result == 1 ? true : false;
+    }
+
 
 }

@@ -16,4 +16,6 @@ public interface UserService {
     public User getUserBySchoolNumber(String schoolNumber);
 
     public boolean updateJoinMatch(String joinMatch, int id);
+
+    public boolean insertDetail(User user);
 }

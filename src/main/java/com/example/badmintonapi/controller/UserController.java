@@ -22,14 +22,12 @@ public class UserController {
     @Autowired
     private TokenService tokenService;
 
-    @GetMapping("add")
-    public String add() {
-        User user = new User();
-        user.setPassword("kkk");
-        user.setUsername("kkk");
-        userService.add(user);
-
-        return "add success";
+    @PostMapping("register")
+    public boolean add(@RequestBody User user) {
+        user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
+        int userid = userService.add(user);
+        user.setUid(userid);
+        return this.userService.insertDetail(user);
     }
 
     @PostMapping("login")
