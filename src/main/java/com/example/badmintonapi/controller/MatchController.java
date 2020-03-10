@@ -122,4 +122,14 @@ public class MatchController {
 
         return response;
     }
+    @GetMapping("show")
+    public Response showMatch() {
+        Response response = new Response();
+        response.setCode(0);
+        Match[] matches = this.matchService.getMatchByStatus(0);
+        Map message = new HashMap();
+        message.put("matches", matches);
+        response.setMessage(message);
+        return response;
+    }
 }
