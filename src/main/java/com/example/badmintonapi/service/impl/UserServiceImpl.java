@@ -19,13 +19,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean select(User user) {
-        User u = userMapper.select(user);
-        if(u == null) {
-            return false;
-        }else {
-            return true;
-        }
+    public User select(User user) {
+        return userMapper.select(user);
     }
 
     @Override
@@ -57,6 +52,11 @@ public class UserServiceImpl implements UserService {
     public boolean insertDetail(User user) {
         int result = userMapper.insertDetail(user);
         return result == 1 ? true : false;
+    }
+
+    @Override
+    public User getUserByUid(int uid) {
+        return userMapper.getUserByUid(uid);
     }
 
 

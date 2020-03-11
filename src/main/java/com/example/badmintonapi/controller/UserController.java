@@ -43,12 +43,13 @@ public class UserController {
         user.setUsername(username);
         user.setPassword(md5Password);
 
-        boolean result = userService.select(user);
-        if(result) {
+        User res = userService.select(user);
+        if(res != null) {
             String token = tokenService.initToken(username, md5Password, remember);
             tokenService.getUser(token);
             message.put("token", token);
             message.put("result", true);
+            message.put("uid", res.getId());
         }else {
             message.put("result", false);
         }
@@ -98,6 +99,23 @@ public class UserController {
         message.put("total", total);
         message.put("userList",Arrays.copyOfRange(users, pageSize*(pageIndex-1), pageSize*(pageIndex-1) + pageSize > total ? total : pageSize*(pageIndex-1) + pageSize));
         response.setMessage(message);
+        return response;
+    }
+
+    @GetMapping("detail")
+    public Response getUserByUid(int uid) {
+        Response response = new Response();
+        Map message = new HashMap();
+        try {
+            User user = userService.getUserByUid(uid);
+            response.setCode(0);
+            message.put("detail", user);
+            response.setMessage(message);
+        }catch (Exception e) {
+            response.setCode(-1);
+            response.setMessage(message);
+        }
+
         return response;
     }
 }

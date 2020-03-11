@@ -5,7 +5,7 @@ import com.example.badmintonapi.domain.User;
 public interface UserService {
     public int add(User user);
 
-    public boolean select(User user);
+    public User select(User user);
 
     public User[] getAllUser();
 
@@ -18,4 +18,6 @@ public interface UserService {
     public boolean updateJoinMatch(String joinMatch, int id);
 
     public boolean insertDetail(User user);
+
+    public User getUserByUid(int uid);
 }

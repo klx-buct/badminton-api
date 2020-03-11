@@ -132,4 +132,30 @@ public class MatchController {
         response.setMessage(message);
         return response;
     }
+    @PostMapping("joinMatch")
+    public Response joinMatch(@RequestBody Map<String, String> params) {
+        int matchId = Integer.parseInt(params.get("id"));
+        String schoolNumber = params.get("schoolNumber");
+        Response response = new Response();
+        Map message = new HashMap();
+        try {
+            System.out.println(schoolNumber);
+            User user = this.userService.getUserBySchoolNumber(schoolNumber);
+            System.out.println(user);
+            Match match = this.matchService.getMatchById(matchId);
+            if(match.getEnterId() == null) {
+                this.matchService.updateMatchEnterid(user.getId()+"", matchId);
+            }else {
+                this.matchService.updateMatchEnterid(match.getEnterId()+"-"+user.getId(), matchId);
+            }
+            response.setCode(0);
+            message.put("result", true);
+            response.setMessage(message);
+        }catch (Exception ex) {
+            response.setCode(-1);
+            message.put("error", ex);
+            response.setMessage(message);
+        }
+        return response;
+    }
 }

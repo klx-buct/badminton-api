@@ -31,4 +31,7 @@ public interface UserMapper {
 
     @Update("update `user-detail` set joinMatch=#{joinMatch} where id=#{id}")
     boolean updateJoinMatch(String joinMatch, int id);
+
+    @Select("select * from `user-detail` where uid=#{uid}")
+    User getUserByUid(int uid);
 }
