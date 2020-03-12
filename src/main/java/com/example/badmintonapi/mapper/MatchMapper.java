@@ -27,4 +27,7 @@ public interface MatchMapper {
 
     @Update("update `match` set enterId=#{enterId} where id = #{id}")
     int updateMatchEnterid(String enterId, int id);
+
+    @Update("update `match` set refereeId=#{refereeId} where id = #{id}")
+    int updateMatchRefereeId(String refereeId, int id);
 }

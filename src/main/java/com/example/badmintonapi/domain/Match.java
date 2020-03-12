@@ -39,6 +39,16 @@ public class Match {
 
     private String enterId;
 
+    private String refereeId;
+
+    public String getRefereeId() {
+        return refereeId;
+    }
+
+    public void setRefereeId(String refereeId) {
+        this.refereeId = refereeId;
+    }
+
     public int getIsTeamUp() {
         return isTeamUp;
     }

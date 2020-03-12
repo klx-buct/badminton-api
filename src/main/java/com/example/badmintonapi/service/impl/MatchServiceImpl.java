@@ -43,4 +43,10 @@ public class MatchServiceImpl implements MatchService {
         int result = this.matchMapper.updateMatchEnterid(enterId, id);
         return result == 1 ? true : false;
     }
+
+    @Override
+    public boolean updateMatchRefereeId(String refereeId, int id) {
+        int result = this.matchMapper.updateMatchRefereeId(refereeId, id);
+        return result == 1 ? true : false;
+    }
 }

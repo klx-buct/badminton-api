@@ -162,4 +162,30 @@ public class MatchController {
         }
         return response;
     }
+
+    @PostMapping("refereeMatch")
+    public Response refereeMatch(@RequestBody Map<String, String> params) {
+        String schoolNumber = params.get("schoolNumber");
+        int matchId = Integer.parseInt(params.get("id"));
+        Response response = new Response();
+        Map message = new HashMap();
+        try {
+           User user = this.userService.getUserBySchoolNumber(schoolNumber);
+           Match match = this.matchService.getMatchById(matchId);
+           if(match.getRefereeId() == null){
+               this.matchService.updateMatchRefereeId(user.getId()+"", matchId);
+           }else {
+               this.matchService.updateMatchRefereeId(match.getRefereeId()+"-"+user.getId(), matchId);
+           }
+           response.setCode(0);
+           message.put("result", true);
+           response.setMessage(message);
+        }catch (Exception e) {
+            response.setCode(-1);
+            message.put("error", e);
+            response.setMessage(message);
+        }
+
+        return response;
+    }
 }
