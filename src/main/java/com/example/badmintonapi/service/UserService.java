@@ -20,4 +20,6 @@ public interface UserService {
     public boolean insertDetail(User user);
 
     public User getUserByUid(int uid);
+
+    public boolean updateRefereeMatch(String refereeMatch, int id);
 }

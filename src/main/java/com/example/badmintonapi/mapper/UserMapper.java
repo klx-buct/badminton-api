@@ -34,4 +34,7 @@ public interface UserMapper {
 
     @Select("select * from `user-detail` where uid=#{uid}")
     User getUserByUid(int uid);
+
+    @Update("update `user-detail` set refereeMatch=#{refereeMatch} where id=#{id}")
+    int updateRefereeMatch(String refereeMatch, int id);
 }

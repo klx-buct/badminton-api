@@ -39,6 +39,16 @@ public class User {
 
     private String imgUrl;
 
+    private String refereeMatch;
+
+    public String getRefereeMatch() {
+        return refereeMatch;
+    }
+
+    public void setRefereeMatch(String refereeMatch) {
+        this.refereeMatch = refereeMatch;
+    }
+
     public String getImgUrl() {
         return imgUrl;
     }

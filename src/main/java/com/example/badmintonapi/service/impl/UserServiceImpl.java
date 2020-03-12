@@ -59,5 +59,11 @@ public class UserServiceImpl implements UserService {
         return userMapper.getUserByUid(uid);
     }
 
+    @Override
+    public boolean updateRefereeMatch(String refereeMatch, int id) {
+        int result = userMapper.updateRefereeMatch(refereeMatch, id);
+        return result == 1 ? true : false;
+    }
+
 
 }
