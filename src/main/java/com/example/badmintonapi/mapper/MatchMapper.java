@@ -30,4 +30,7 @@ public interface MatchMapper {
 
     @Update("update `match` set refereeId=#{refereeId} where id = #{id}")
     int updateMatchRefereeId(String refereeId, int id);
+
+    @Select("select * from `match` where status != -1")
+    Match[] getIngMatch();
 }

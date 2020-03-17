@@ -49,4 +49,9 @@ public class MatchServiceImpl implements MatchService {
         int result = this.matchMapper.updateMatchRefereeId(refereeId, id);
         return result == 1 ? true : false;
     }
+
+    @Override
+    public Match[] getIngMatch() {
+        return this.matchMapper.getIngMatch();
+    }
 }
