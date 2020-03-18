@@ -5,8 +5,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
 public interface MatchResultMapper {
-    @Select("select * from `match-result` where contestant like concat('%', #{uid}, '%') and round = #{round}")
-    MatchResult getMatchResult(String uid, int round);
+    @Select("select * from `match-result` where contestant like concat('%', #{uid}, '%') and round = #{round} and matchId=#{matchId}")
+    MatchResult getMatchResult(String uid, int round, int matchId);
 
     @Select("select * from `match-result` where matchId=#{matchId}")
     MatchResult[] getMatchResultByMatchId(int matchId);

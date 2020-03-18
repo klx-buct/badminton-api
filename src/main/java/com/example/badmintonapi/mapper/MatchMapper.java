@@ -13,7 +13,7 @@ public interface MatchMapper {
     )
     int insert(Match match);
 
-    @Select("select * from `match` where status=#{status}")
+    @Select("select * from `match` where status!=#{status}")
     Match[] getMatchByStatus(int status);
 
     @Select("select * from `match` where name like concat('%', #{name}, '%')")
@@ -22,7 +22,7 @@ public interface MatchMapper {
     @Select("select * from `match` where id = #{id}")
     Match getMatchById(int id);
 
-    @Update("update `match` set name=#{name}, introduce=#{introduce}, address=#{address}, prize=#{prize}, begTime=#{begTime}, endTime=#{endTime}, `limit`=#{limit}, limitPeople=#{limitPeople}, player=#{player}, referee=#{referee}, isTeamUp=#{isTeamUp}, teamUpLimit=#{teamUpLimit}, status=#{status} where id=#{id}")
+    @Update("update `match` set name=#{name}, introduce=#{introduce}, address=#{address}, prize=#{prize}, begTime=#{begTime}, endTime=#{endTime}, `limit`=#{limit}, limitPeople=#{limitPeople}, player=#{player}, referee=#{referee}, isTeamUp=#{isTeamUp}, teamUpLimit=#{teamUpLimit}, status=#{status}, actualPlayer=#{actualPlayer}, actualReferee=#{actualReferee} where id=#{id}")
     int updateMatch(Match match);
 
     @Update("update `match` set enterId=#{enterId} where id = #{id}")

@@ -11,8 +11,8 @@ public class MatchResultServiceImpl implements MatchResultService {
     @Autowired
     MatchResultMapper matchResultMapper;
     @Override
-    public MatchResult getMatchResult(String uid, int round) {
-        return matchResultMapper.getMatchResult(uid, round);
+    public MatchResult getMatchResult(String uid, int round, int matchId) {
+        return matchResultMapper.getMatchResult(uid, round, matchId);
     }
 
     @Override

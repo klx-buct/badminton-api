@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 public interface ConfrontationMapper {
-    @Insert("insert into confrontation(matchId, teamId, match, end) values(#{matchId}, #{teamId}, #{match}, #{end})")
+    @Insert("insert into confrontation(matchId, teamId, `match`, end) values(#{matchId}, #{teamId}, #{match}, #{end})")
     int insert(Confrontation confrontation);
 
     @Select("select * from confrontation where end = #{end} and matchId = #{matchId}")

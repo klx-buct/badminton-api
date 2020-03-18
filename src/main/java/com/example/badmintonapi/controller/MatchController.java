@@ -1,9 +1,7 @@
 package com.example.badmintonapi.controller;
 
-import com.example.badmintonapi.domain.Match;
-import com.example.badmintonapi.domain.Response;
-import com.example.badmintonapi.domain.Team;
-import com.example.badmintonapi.domain.User;
+import com.example.badmintonapi.domain.*;
+import com.example.badmintonapi.service.ConfrontationService;
 import com.example.badmintonapi.service.MatchService;
 import com.example.badmintonapi.service.TeamService;
 import com.example.badmintonapi.service.UserService;
@@ -29,6 +27,9 @@ public class MatchController {
 
     @Autowired
     TeamService teamService;
+
+    @Autowired
+    ConfrontationService confrontationService;
 
     @PostMapping("add")
     public Response insert(@RequestBody Match match) {
@@ -130,7 +131,7 @@ public class MatchController {
     public Response showMatch() {
         Response response = new Response();
         response.setCode(0);
-        Match[] matches = this.matchService.getMatchByStatus(0);
+        Match[] matches = this.matchService.getMatchByStatus(-1);
         Map message = new HashMap();
         message.put("matches", matches);
         response.setMessage(message);
@@ -143,15 +144,21 @@ public class MatchController {
         Response response = new Response();
         Map message = new HashMap();
         try {
-            System.out.println(schoolNumber);
             User user = this.userService.getUserBySchoolNumber(schoolNumber);
-            System.out.println(user);
             Match match = this.matchService.getMatchById(matchId);
+            match.setActualPlayer(match.getActualPlayer()+1);
+            System.out.println(match.getActualPlayer());
+            this.matchService.updateMatch(match);
             if(match.getEnterId() == null) {
-                this.matchService.updateMatchEnterid(user.getId()+"", matchId);
+                this.matchService.updateMatchEnterid(user.getUid()+"", matchId);
             }else {
-                this.matchService.updateMatchEnterid(match.getEnterId()+"-"+user.getId(), matchId);
+                this.matchService.updateMatchEnterid(match.getEnterId()+"-"+user.getUid(), matchId);
             }
+            Confrontation confrontation = new Confrontation();
+            confrontation.setMatchId(matchId);
+            confrontation.setTeamId(user.getUid());
+            confrontation.setEnd(0);
+            this.confrontationService.insert(confrontation);
             response.setCode(0);
             message.put("result", true);
             response.setMessage(message);
@@ -172,6 +179,8 @@ public class MatchController {
         try {
            User user = this.userService.getUserBySchoolNumber(schoolNumber);
            Match match = this.matchService.getMatchById(matchId);
+           match.setActualReferee(match.getActualReferee()+1);
+           this.matchService.updateMatch(match);
            if(match.getRefereeId() == null){
                this.matchService.updateMatchRefereeId(user.getId()+"", matchId);
            }else {
