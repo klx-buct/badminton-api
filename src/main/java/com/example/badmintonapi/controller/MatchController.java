@@ -12,9 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("api/match")
@@ -146,6 +144,11 @@ public class MatchController {
         try {
             User user = this.userService.getUserBySchoolNumber(schoolNumber);
             Match match = this.matchService.getMatchById(matchId);
+            if(user.getJoinMatch() == null) {
+                this.userService.updateJoinMatch(match.getId() + "", user.getId());
+            }else {
+                this.userService.updateJoinMatch(user.getJoinMatch()+"-"+match.getId(), user.getId());
+            }
             match.setActualPlayer(match.getActualPlayer()+1);
             System.out.println(match.getActualPlayer());
             this.matchService.updateMatch(match);
@@ -179,6 +182,11 @@ public class MatchController {
         try {
            User user = this.userService.getUserBySchoolNumber(schoolNumber);
            Match match = this.matchService.getMatchById(matchId);
+           if(user.getRefereeMatch() == null) {
+               this.userService.updateRefereeMatch(match.getId()+"", user.getId());
+           }else {
+               this.userService.updateRefereeMatch(user.getRefereeMatch()+"-"+match.getId(), user.getId());
+           }
            match.setActualReferee(match.getActualReferee()+1);
            this.matchService.updateMatch(match);
            if(match.getRefereeId() == null){
@@ -197,4 +205,35 @@ public class MatchController {
 
         return response;
     }
+
+    @GetMapping("userMatch")
+    public Response userMatch(int uid) {
+        Response response = new Response();
+        Map message = new HashMap();
+        try {
+            List<Match> matches = new ArrayList<>();
+            User user = this.userService.getUserByUid(uid);
+            String joinMatch = user.getJoinMatch();
+            String[] matchList = joinMatch.split("-");
+            for (String matchId:
+                 matchList) {
+                Match match = this.matchService.getMatchById(Integer.parseInt(matchId));
+                matches.add(match);
+            }
+            message.put("matchList", matches);
+            response.setCode(0);
+            response.setMessage(message);
+        }catch (Exception e) {
+            response.setCode(-1);
+            message.put("error", e);
+            response.setMessage(message);
+        }
+
+        return response;
+    }
+
+//    @GetMapping("arrange")
+//    public Response arrange(int uid, int matchId) {
+//
+//    }
 }

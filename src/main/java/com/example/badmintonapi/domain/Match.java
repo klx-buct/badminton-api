@@ -41,6 +41,16 @@ public class Match {
 
     private String refereeId;
 
+    private int signNum;
+
+    public int getSignNum() {
+        return signNum;
+    }
+
+    public void setSignNum(int signNum) {
+        this.signNum = signNum;
+    }
+
     public String getRefereeId() {
         return refereeId;
     }
