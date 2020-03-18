@@ -8,4 +8,6 @@ public interface ConfrontationService {
     public Confrontation[] getList(int end, int matchId);
 
     public Confrontation[] getListByMatchId(int matchId);
+
+    public boolean updateMatch(String match, int id);
 }

@@ -6,4 +6,6 @@ public interface MatchResultService {
     public MatchResult getMatchResult(String uid, int round);
 
     public MatchResult[] getMatchResultByMatchId(int matchId);
+
+    public boolean insert(MatchResult matchResult);
 }

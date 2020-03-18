@@ -16,6 +16,16 @@ public class MatchResult {
 
     private String refereeName;
 
+    private int round;
+
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
+    }
+
     public String getTeam1() {
         return team1;
     }

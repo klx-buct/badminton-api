@@ -25,4 +25,11 @@ public class ConfrontationServiceImpl implements ConfrontationService {
     public Confrontation[] getListByMatchId(int matchId) {
         return confrontationMapper.getListByMatchId(matchId);
     }
+
+    @Override
+    public boolean updateMatch(String match, int id) {
+        int result = confrontationMapper.updateMatch(match, id);
+
+        return result == 1 ? true : false;
+    }
 }

@@ -19,4 +19,11 @@ public class MatchResultServiceImpl implements MatchResultService {
     public MatchResult[] getMatchResultByMatchId(int matchId) {
         return matchResultMapper.getMatchResultByMatchId(matchId);
     }
+
+    @Override
+    public boolean insert(MatchResult matchResult) {
+        int result = matchResultMapper.insert(matchResult);
+
+        return result == 1 ? true : false;
+    }
 }
