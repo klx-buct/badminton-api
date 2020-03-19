@@ -8,8 +8,8 @@ import org.apache.ibatis.annotations.Update;
 public interface MatchMapper {
     @Insert(
     "insert into " +
-            "`match`(name, introduce, address, prize, begTime, endTime, `limit`, limitPeople, actualPlayer, player, referee, actualReferee, hintCount, status, time, isTeamUp, teamUpLimit, enterId, signNum) " +
-            "values(#{name}, #{introduce}, #{address}, #{prize}, #{begTime}, #{endTime}, #{limit}, #{limitPeople}, #{actualPlayer}, #{player}, #{referee}, #{actualReferee}, #{hintCount}, #{status}, #{time}, #{isTeamUp}, #{teamUpLimit}, #{enterId}, #{signNum})"
+            "`match`(name, introduce, address, prize, begTime, endTime, `limit`, limitPeople, actualPlayer, player, referee, actualReferee, hintCount, status, time, isTeamUp, teamUpLimit, enterId, signNum, isPrize) " +
+            "values(#{name}, #{introduce}, #{address}, #{prize}, #{begTime}, #{endTime}, #{limit}, #{limitPeople}, #{actualPlayer}, #{player}, #{referee}, #{actualReferee}, #{hintCount}, #{status}, #{time}, #{isTeamUp}, #{teamUpLimit}, #{enterId}, #{signNum}, #{isPrize})"
     )
     int insert(Match match);
 
@@ -33,4 +33,10 @@ public interface MatchMapper {
 
     @Select("select * from `match` where status != -1")
     Match[] getIngMatch();
+
+    @Select("select * from `match` where isPrize=#{isPrize} and status=-1")
+    Match[] getNeedPrize(int isPrize);
+
+    @Update("update `match` set isPrize=#{isPrize} where id = #{id}")
+    int updatePrize(int isPrize, int id);
 }

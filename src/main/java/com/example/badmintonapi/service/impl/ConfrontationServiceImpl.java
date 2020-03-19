@@ -42,4 +42,10 @@ public class ConfrontationServiceImpl implements ConfrontationService {
     public Confrontation findOpponent(int matchId, String match, int nowUid) {
         return confrontationMapper.findOpponent(matchId, match, nowUid);
     }
+
+    @Override
+    public boolean updateEnd(int end, int id) {
+        int result = confrontationMapper.updateEnd(end, id);
+        return result == 1 ? true : false;
+    }
 }

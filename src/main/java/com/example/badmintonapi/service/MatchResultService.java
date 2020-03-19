@@ -14,4 +14,6 @@ public interface MatchResultService {
     public MatchResult[] getUserReferee(int uid);
 
     public boolean updateResult(MatchResult matchResult);
+
+    public MatchResult getResultById(int id);
 }

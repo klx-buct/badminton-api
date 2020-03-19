@@ -43,6 +43,16 @@ public class Match {
 
     private int signNum;
 
+    private int isPrize;
+
+    public int getIsPrize() {
+        return isPrize;
+    }
+
+    public void setIsPrize(int isPrize) {
+        this.isPrize = isPrize;
+    }
+
     public int getSignNum() {
         return signNum;
     }

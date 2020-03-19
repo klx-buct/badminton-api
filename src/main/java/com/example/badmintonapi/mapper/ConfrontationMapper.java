@@ -23,4 +23,7 @@ public interface ConfrontationMapper {
 
     @Update("update confrontation set `match`=#{match} where id=#{id}")
     int updateMatch(String match, int id);
+
+    @Update("update confrontation set end=#{end} where id=#{id}")
+    int updateEnd(int end, int id);
 }

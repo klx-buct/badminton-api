@@ -24,4 +24,7 @@ public interface MatchResultMapper {
     @Update("update `match-result` set grade=#{grade} where id=#{id}")
     int updateResult(MatchResult matchResult);
 
+    @Select("select * from `match-result` where id = #{id}")
+    MatchResult getResultById(int id);
+
 }

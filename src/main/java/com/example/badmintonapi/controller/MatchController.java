@@ -309,8 +309,92 @@ public class MatchController {
             matchResult.setId(id);
             matchResult.setGrade(grade);
             boolean res = this.matchResultService.updateResult(matchResult);
+            MatchResult resultById = this.matchResultService.getResultById(id);
+            String contestant = resultById.getContestant();
+            String[] uids = contestant.split("-");
+            String[] grades = grade.split("-");
+            Confrontation confrontation;
+            if(Integer.parseInt(grades[0]) < Integer.parseInt(grades[1])) {
+                confrontation = this.confrontationService.userMatch(resultById.getMatchId(), Integer.parseInt(uids[0]));
+            }else {
+                confrontation = this.confrontationService.userMatch(resultById.getMatchId(), Integer.parseInt(uids[1]));
+            }
+            this.confrontationService.updateEnd(resultById.getRound(), confrontation.getId());
             message.put("result", res);
             response.setCode(0);
+            response.setMessage(message);
+        }catch (Exception e) {
+            response.setCode(-1);
+            message.put("error", e);
+            response.setMessage(message);
+        }
+
+        return response;
+    }
+
+    @GetMapping("round")
+    public Response getRound(int matchId) {
+        Response response = new Response();
+        Map message = new HashMap();
+        try {
+            MatchRound[] round = this.matchRoundService.getRound(matchId);
+            response.setCode(0);
+            message.put("round", round);
+            response.setMessage(message);
+        }catch (Exception e) {
+            response.setCode(-1);
+            message.put("error", e);
+            response.setMessage(message);
+        }
+
+        return response;
+    }
+
+//    @GetMapping("users")
+//    public Response getUsersByRound(int matchId, int roundType) {
+//
+//    }
+
+    @GetMapping("prizeList")
+    public Response prizeList() {
+        Response response = new Response();
+        Map message = new HashMap();
+        try {
+            Match[] needPrize = this.matchService.getNeedPrize(0);
+            message.put("prizeList", needPrize);
+            response.setCode(0);
+            response.setMessage(message);
+        }catch (Exception e) {
+            response.setCode(-1);
+            message.put("error", e);
+            response.setMessage(message);
+        }
+
+        return response;
+    }
+
+    @PostMapping("end")
+    public Response end(@RequestBody Map<String, String> params) {
+        Response response = new Response();
+        Map message = new HashMap();
+        int matchId = Integer.parseInt(params.get("matchId"));
+        try {
+            Match matchById = this.matchService.getMatchById(matchId);
+            int nowRound = matchById.getStatus()+1;
+            matchById.setStatus(-1);
+            this.matchService.updateMatch(matchById);
+            Confrontation[] list = this.confrontationService.getList(0, matchId);
+            for (Confrontation confrontation:
+                 list) {
+                this.confrontationService.updateEnd(nowRound, confrontation.getId());
+            }
+            MatchRound matchRound = new MatchRound();
+            matchRound.setRound(nowRound);
+            matchRound.setMatchId(matchId);
+            matchRound.setText("最终胜利者");
+            this.matchRoundService.insert(matchRound);
+            response.setCode(0);
+            message.put("result", true);
             response.setMessage(message);
         }catch (Exception e) {
             response.setCode(-1);

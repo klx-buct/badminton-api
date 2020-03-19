@@ -18,4 +18,8 @@ public interface MatchService {
     public boolean updateMatchRefereeId(String refereeId, int id);
 
     public Match[] getIngMatch();
+
+    public Match[] getNeedPrize(int isPrize);
+
+    public boolean updatePrize(int isPrize, int id);
 }

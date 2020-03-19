@@ -21,4 +21,9 @@ public class MatchRoundServiceImpl implements MatchRoundService {
     public MatchRound getMatchRound(int round, int matchId) {
         return matchRoundMapper.getMatchRound(round, matchId);
     }
+
+    @Override
+    public MatchRound[] getRound(int matchId) {
+        return matchRoundMapper.getRound(matchId);
+    }
 }

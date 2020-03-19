@@ -10,4 +10,7 @@ public interface MatchRoundMapper {
 
     @Select("select * from `match-round` where round=${round} and matchId=#{matchId}")
     MatchRound getMatchRound(int round, int matchId);
+
+    @Select("select * from `match-round` where matchId=#{matchId}")
+    MatchRound[] getRound(int matchId);
 }

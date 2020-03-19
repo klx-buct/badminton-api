@@ -54,4 +54,15 @@ public class MatchServiceImpl implements MatchService {
     public Match[] getIngMatch() {
         return this.matchMapper.getIngMatch();
     }
+
+    @Override
+    public Match[] getNeedPrize(int isPrize) {
+        return this.matchMapper.getNeedPrize(isPrize);
+    }
+
+    @Override
+    public boolean updatePrize(int isPrize, int id) {
+        int result =  this.matchMapper.updatePrize(isPrize, id);
+        return result == 1 ? true : false;
+    }
 }

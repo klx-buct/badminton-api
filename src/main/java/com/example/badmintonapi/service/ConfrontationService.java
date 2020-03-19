@@ -14,4 +14,6 @@ public interface ConfrontationService {
     public Confrontation userMatch(int matchId, int teamId);
 
     public Confrontation findOpponent(int matchId, String match, int nowUid);
+
+    public boolean updateEnd(int end, int id);
 }

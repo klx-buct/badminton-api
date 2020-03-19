@@ -43,4 +43,9 @@ public class MatchResultServiceImpl implements MatchResultService {
 
         return result == 1 ? true : false;
     }
+
+    @Override
+    public MatchResult getResultById(int id) {
+        return matchResultMapper.getResultById(id);
+    }
 }
