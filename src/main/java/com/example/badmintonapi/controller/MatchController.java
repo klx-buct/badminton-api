@@ -272,4 +272,52 @@ public class MatchController {
         }
         return response;
     }
+
+    @GetMapping("userReferee")
+    public Response userReferee(int uid) {
+        Response response = new Response();
+        Map message = new HashMap();
+        try {
+            MatchResult[] userReferee = this.matchResultService.getUserReferee(uid);
+            for (MatchResult matchResult:
+                 userReferee) {
+                Match matchById = this.matchService.getMatchById(matchResult.getMatchId());
+                MatchRound matchRound = this.matchRoundService.getMatchRound(matchById.getStatus(), matchById.getId());
+                matchResult.setMatchName(matchById.getName());
+                matchResult.setRoundName(matchRound.getText());
+            }
+            response.setCode(0);
+            message.put("matchResult", userReferee);
+            response.setMessage(message);
+        }catch (Exception e) {
+            response.setCode(-1);
+            message.put("error", e);
+            response.setMessage(message);
+        }
+
+        return response;
+    }
+
+    @PostMapping("updateResult")
+    public Response updateResult(@RequestBody Map<String, String> params) {
+        int id = Integer.parseInt(params.get("id"));
+        String grade = params.get("grade");
+        Response response = new Response();
+        Map message = new HashMap();
+        try {
+            MatchResult matchResult = new MatchResult();
+            matchResult.setId(id);
+            matchResult.setGrade(grade);
+            boolean res = this.matchResultService.updateResult(matchResult);
+            message.put("result", res);
+            response.setCode(0);
+            response.setMessage(message);
+        }catch (Exception e) {
+            response.setCode(-1);
+            message.put("error", e);
+            response.setMessage(message);
+        }
+
+        return response;
+    }
 }

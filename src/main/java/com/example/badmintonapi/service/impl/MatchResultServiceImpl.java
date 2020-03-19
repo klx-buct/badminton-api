@@ -31,4 +31,16 @@ public class MatchResultServiceImpl implements MatchResultService {
     public MatchResult getItem(int matchId, String contestant) {
         return matchResultMapper.getItem(matchId, contestant);
     }
+
+    @Override
+    public MatchResult[] getUserReferee(int uid) {
+        return matchResultMapper.getUserReferee(uid);
+    }
+
+    @Override
+    public boolean updateResult(MatchResult matchResult) {
+        int result = matchResultMapper.updateResult(matchResult);
+
+        return result == 1 ? true : false;
+    }
 }

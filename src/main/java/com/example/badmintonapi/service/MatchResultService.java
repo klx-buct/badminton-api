@@ -10,4 +10,8 @@ public interface MatchResultService {
     public boolean insert(MatchResult matchResult);
 
     public MatchResult getItem(int matchId, String contestant);
+
+    public MatchResult[] getUserReferee(int uid);
+
+    public boolean updateResult(MatchResult matchResult);
 }

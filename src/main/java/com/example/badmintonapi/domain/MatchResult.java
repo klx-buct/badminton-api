@@ -18,6 +18,26 @@ public class MatchResult {
 
     private int round;
 
+    private String matchName;
+
+    private String roundName;
+
+    public String getMatchName() {
+        return matchName;
+    }
+
+    public void setMatchName(String matchName) {
+        this.matchName = matchName;
+    }
+
+    public String getRoundName() {
+        return roundName;
+    }
+
+    public void setRoundName(String roundName) {
+        this.roundName = roundName;
+    }
+
     public int getRound() {
         return round;
     }
