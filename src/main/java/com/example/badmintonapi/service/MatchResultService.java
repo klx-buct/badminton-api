@@ -8,4 +8,6 @@ public interface MatchResultService {
     public MatchResult[] getMatchResultByMatchId(int matchId);
 
     public boolean insert(MatchResult matchResult);
+
+    public MatchResult getItem(int matchId, String contestant);
 }

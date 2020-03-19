@@ -10,4 +10,8 @@ public interface ConfrontationService {
     public Confrontation[] getListByMatchId(int matchId);
 
     public boolean updateMatch(String match, int id);
+
+    public Confrontation userMatch(int matchId, int teamId);
+
+    public Confrontation findOpponent(int matchId, String match, int nowUid);
 }

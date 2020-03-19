@@ -14,4 +14,7 @@ public interface MatchResultMapper {
     @Insert("insert into `match-result`(matchId, round, contestant, team1, team2, referee, refereeName, address) values(#{matchId}, #{round}, #{contestant}, #{team1}, #{team2}, #{referee}, #{refereeName}, #{address})")
     int insert(MatchResult matchResult);
 
+    @Select("select * from `match-result` where matchId=#{matchId} and contestant=#{contestant}")
+    MatchResult getItem(int matchId, String contestant);
+
 }

@@ -1,10 +1,7 @@
 package com.example.badmintonapi.controller;
 
 import com.example.badmintonapi.domain.*;
-import com.example.badmintonapi.service.ConfrontationService;
-import com.example.badmintonapi.service.MatchService;
-import com.example.badmintonapi.service.TeamService;
-import com.example.badmintonapi.service.UserService;
+import com.example.badmintonapi.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +25,12 @@ public class MatchController {
 
     @Autowired
     ConfrontationService confrontationService;
+
+    @Autowired
+    MatchResultService matchResultService;
+
+    @Autowired
+    MatchRoundService matchRoundService;
 
     @PostMapping("add")
     public Response insert(@RequestBody Match match) {
@@ -232,8 +235,41 @@ public class MatchController {
         return response;
     }
 
-//    @GetMapping("arrange")
-//    public Response arrange(int uid, int matchId) {
-//
-//    }
+    @GetMapping("arrange")
+    public Response arrange(int uid, int matchId) {
+        Response response = new Response();
+        Map message = new HashMap();
+        try{
+            Match match = this.matchService.getMatchById(matchId);
+            if(match.getIsTeamUp() == 0) { //不允许组队
+                Confrontation confrontation = this.confrontationService.userMatch(matchId, uid);
+                String[] matchList = confrontation.getMatch().split(",");
+                String nowMatch = matchList[matchList.length-1];
+                if(nowMatch.contains("0")) { //轮空了
+                    message.put("null", true);
+                }else {
+                    User user = this.userService.getUserByUid(uid);
+                    Confrontation opponentConfrontation = this.confrontationService.findOpponent(matchId, nowMatch, uid);
+                    User user2 = this.userService.getUserByUid(opponentConfrontation.getTeamId());
+                    MatchRound matchRound = this.matchRoundService.getMatchRound(match.getStatus(), matchId);
+                    message.put("roundName", matchRound.getText());
+                    message.put("null", false);
+                    message.put("matchName", match.getName());
+                    message.put("team1", user.getUsername());
+                    message.put("team2", user2.getUsername());
+                    MatchResult item = this.matchResultService.getItem(matchId, user.getUid() + "-" + user2.getUid());
+                    message.put("address", item.getAddress());
+                    message.put("referee", item.getRefereeName());
+                    response.setMessage(message);
+                }
+            }else { //允许组队
+
+            }
+        }catch (Exception e) {
+            response.setCode(-1);
+            message.put("error", e);
+            response.setMessage(message);
+        }
+        return response;
+    }
 }

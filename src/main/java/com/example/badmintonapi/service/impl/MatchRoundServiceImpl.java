@@ -16,4 +16,9 @@ public class MatchRoundServiceImpl implements MatchRoundService {
 
         return result == 1 ? true : false;
     }
+
+    @Override
+    public MatchRound getMatchRound(int round, int matchId) {
+        return matchRoundMapper.getMatchRound(round, matchId);
+    }
 }

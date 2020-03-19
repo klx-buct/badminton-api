@@ -32,4 +32,14 @@ public class ConfrontationServiceImpl implements ConfrontationService {
 
         return result == 1 ? true : false;
     }
+
+    @Override
+    public Confrontation userMatch(int matchId, int teamId) {
+        return confrontationMapper.userMatch(matchId, teamId);
+    }
+
+    @Override
+    public Confrontation findOpponent(int matchId, String match, int nowUid) {
+        return confrontationMapper.findOpponent(matchId, match, nowUid);
+    }
 }

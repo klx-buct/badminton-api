@@ -26,4 +26,9 @@ public class MatchResultServiceImpl implements MatchResultService {
 
         return result == 1 ? true : false;
     }
+
+    @Override
+    public MatchResult getItem(int matchId, String contestant) {
+        return matchResultMapper.getItem(matchId, contestant);
+    }
 }

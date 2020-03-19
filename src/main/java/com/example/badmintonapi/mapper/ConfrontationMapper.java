@@ -15,6 +15,12 @@ public interface ConfrontationMapper {
     @Select("select * from confrontation where matchId=#{matchId}")
     Confrontation[] getListByMatchId(int matchId);
 
+    @Select("select * from confrontation where matchId=#{matchId} and teamId=#{teamId}")
+    Confrontation userMatch(int matchId, int teamId);
+
+    @Select("select * from confrontation where matchId=#{matchId} and `match` like concat('%', #{match}, '%') and teamId!=#{nowUid}")
+    Confrontation findOpponent(int matchId, String match, int nowUid);
+
     @Update("update confrontation set `match`=#{match} where id=#{id}")
     int updateMatch(String match, int id);
 }
