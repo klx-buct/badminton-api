@@ -32,13 +32,16 @@ public class MatchController {
     @Autowired
     MatchRoundService matchRoundService;
 
+    @Autowired
+    TeamDetailService teamDetailService;
+
     @PostMapping("add")
     public Response insert(@RequestBody Match match) {
-        boolean res = this.matchService.insertMatch(match);
+        int res = this.matchService.insertMatch(match);
         Response response = new Response();
         response.setCode(0);
         Map message = new HashMap();
-        message.put("result", res);
+        message.put("result", match.getId());
 
         response.setMessage(message);
 
@@ -93,6 +96,13 @@ public class MatchController {
         String name = params.get("name");
         String userList = params.get("userList");
         String[] userNumber = userList.split("-");
+        //创建team
+        Team team = new Team();
+        team.setMatchId(id);
+        team.setName(name);
+        team.setPeople(userList);
+        team.setCaption(Integer.parseInt(userNumber[0]));
+        this.teamService.insertTeam(team);
         for(int i = 0; i < userNumber.length; i++) {
             User user = this.userService.getUserBySchoolNumber(userNumber[i]);
             //记录队长id
@@ -102,16 +112,12 @@ public class MatchController {
             }else {
                 this.userService.updateJoinMatch(user.getJoinMatch()+"-"+id, user.getId());
             }
-
+            TeamDetail teamDetail = new TeamDetail();
+            teamDetail.setTeamId(team.getId());
+            teamDetail.setUserId(user.getUid());
+            teamDetail.setName(user.getName());
+            teamDetailService.insert(teamDetail);
         }
-        //创建team
-        Team team = new Team();
-        team.setMatchId(id);
-        team.setName(name);
-        team.setPeople(userList);
-        team.setCaption(Integer.parseInt(userNumber[0]));
-        this.teamService.insertTeam(team);
-        System.out.println(team.getId());
         //更新match的enterID
         Match match = this.matchService.getMatchById(id);
         if(match.getEnterId() == null) {
@@ -221,7 +227,8 @@ public class MatchController {
             for (String matchId:
                  matchList) {
                 Match match = this.matchService.getMatchById(Integer.parseInt(matchId));
-                matches.add(match);
+                if(match.getStatus()!=-1)
+                    matches.add(match);
             }
             message.put("matchList", matches);
             response.setCode(0);
@@ -350,10 +357,38 @@ public class MatchController {
         return response;
     }
 
-//    @GetMapping("users")
-//    public Response getUsersByRound(int matchId, int roundType) {
-//
-//    }
+    @GetMapping("users")
+    public Response getUsersByRound(int matchId, int roundType) {
+        Response response = new Response();
+        Map message = new HashMap();
+        try {
+            Match matchById = this.matchService.getMatchById(matchId);
+            List userList = new ArrayList<>();
+            if(matchById.getIsTeamUp() == 0) { //不允许组队
+                Confrontation[] list = this.confrontationService.getList(roundType, matchId);
+                for (Confrontation confrontation:
+                     list) {
+                    User user = this.userService.getUserByUid(confrontation.getTeamId());
+                    Map map = new HashMap();
+                    map.put("id", user.getUid());
+                    map.put("teamName", user.getUsername());
+                    map.put("realName", user.getName());
+                    userList.add(map);
+                }
+                message.put("user", userList);
+                response.setMessage(message);
+                response.setCode(0);
+            }else {
+
+            }
+        }catch (Exception e) {
+            response.setCode(-1);
+            message.put("error", e);
+            response.setMessage(message);
+        }
+
+        return response;
+    }
 
     @GetMapping("prizeList")
     public Response prizeList() {

@@ -12,9 +12,9 @@ public class MatchServiceImpl implements MatchService {
     MatchMapper matchMapper;
 
     @Override
-    public boolean insertMatch(Match match) {
+    public int insertMatch(Match match) {
         int insert = matchMapper.insert(match);
-        return insert == 1 ? true : false;
+        return insert;
     }
 
     @Override

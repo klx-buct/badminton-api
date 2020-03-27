@@ -2,6 +2,7 @@ package com.example.badmintonapi.mapper;
 
 import com.example.badmintonapi.domain.Match;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -11,9 +12,10 @@ public interface MatchMapper {
             "`match`(name, introduce, address, prize, begTime, endTime, `limit`, limitPeople, actualPlayer, player, referee, actualReferee, hintCount, status, time, isTeamUp, teamUpLimit, enterId, signNum, isPrize) " +
             "values(#{name}, #{introduce}, #{address}, #{prize}, #{begTime}, #{endTime}, #{limit}, #{limitPeople}, #{actualPlayer}, #{player}, #{referee}, #{actualReferee}, #{hintCount}, #{status}, #{time}, #{isTeamUp}, #{teamUpLimit}, #{enterId}, #{signNum}, #{isPrize})"
     )
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insert(Match match);
 
-    @Select("select * from `match` where status!=#{status}")
+    @Select("select * from `match`")
     Match[] getMatchByStatus(int status);
 
     @Select("select * from `match` where name like concat('%', #{name}, '%')")
