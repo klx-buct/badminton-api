@@ -35,14 +35,27 @@ public class MatchController {
     @Autowired
     TeamDetailService teamDetailService;
 
+    @Autowired
+    MatchTypeService matchTypeService;
+
     @PostMapping("add")
     public Response insert(@RequestBody Match match) {
-        int res = this.matchService.insertMatch(match);
+        matchService.insertMatch(match);
         Response response = new Response();
         response.setCode(0);
         Map message = new HashMap();
         message.put("result", match.getId());
-
+        for (int i:
+             match.getMatchType()) {
+            switch (i) {
+                case 0: matchTypeService.insert(new MatchType(0, "男单", 1, match.getId()));break;
+                case 1: matchTypeService.insert(new MatchType(1, "女单", 1, match.getId()));break;
+                case 2: matchTypeService.insert(new MatchType(2, "男双", 2, match.getId()));break;
+                case 3: matchTypeService.insert(new MatchType(3, "女双", 2, match.getId()));break;
+                case 4: matchTypeService.insert(new MatchType(4, "混双", 2, match.getId()));break;
+                default:break;
+            }
+        }
         response.setMessage(message);
 
         return response;

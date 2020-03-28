@@ -45,6 +45,16 @@ public class Match {
 
     private int isPrize;
 
+    private int[] matchType;
+
+    public int[] getMatchType() {
+        return matchType;
+    }
+
+    public void setMatchType(int[] matchType) {
+        this.matchType = matchType;
+    }
+
     public int getIsPrize() {
         return isPrize;
     }
