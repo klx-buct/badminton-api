@@ -16,4 +16,9 @@ public class TeamDetailServiceImpl implements TeamDetailService {
 
         return res == 1 ? true : false;
     }
+
+    @Override
+    public TeamDetail[] getTeamDetail(int teamId) {
+        return teamDetailMapper.getTeamDetail(teamId);
+    }
 }

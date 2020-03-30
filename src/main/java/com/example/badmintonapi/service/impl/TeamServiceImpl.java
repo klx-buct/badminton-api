@@ -16,4 +16,14 @@ public class TeamServiceImpl implements TeamService {
         int result = teamMapper.insertTeam(team);
         return result == 1 ? true : false;
     }
+
+    @Override
+    public Team getTeam(int matchId, String caption) {
+        return teamMapper.getTeam(matchId, caption);
+    }
+
+    @Override
+    public Team getTeamById(int teamId) {
+        return teamMapper.getTeamById(teamId);
+    }
 }

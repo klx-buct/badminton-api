@@ -452,4 +452,75 @@ public class MatchController {
 
         return response;
     }
+
+    @GetMapping("against")
+    public Response against(int matchId, int uid) {
+        Response response = new Response();
+        Map message = new HashMap();
+        Match match = this.matchService.getMatchById(matchId);
+        User user = this.userService.getUserByUid(uid);
+        Team team = this.teamService.getTeam(matchId, user.getSchoolNumber());
+        if(team == null) {
+            message.put("result", false);
+            response.setCode(0);
+            response.setMessage(message);
+        }else {
+            TeamDetail[] teamDetails = this.teamDetailService.getTeamDetail(team.getId());
+            int round = match.getStatus();
+            boolean judge = true;
+            for (TeamDetail teamDetail:
+                 teamDetails) {
+                if(teamDetail.getType()==null && round == 0) {
+                    continue;
+                }
+                String[] split = teamDetail.getType().split(",");
+                if(split.length != round) {
+                    judge = false;
+
+                }
+            }
+            if(judge) {
+                message.put("result", true);
+                message.put("teamId", team.getId());
+                response.setCode(0);
+                response.setMessage(message);
+            }else {
+                message.put("result", false);
+                response.setCode(0);
+                response.setMessage(message);
+            }
+        }
+
+        return response;
+    }
+
+    @GetMapping("peopleList")
+    public Response getPeopleList(int teamId) {
+        Team teamById = this.teamService.getTeamById(teamId);
+        String[] split = teamById.getPeople().split("-");
+        List<User> users = new ArrayList<>();
+        for (String schoolNumber:
+             split) {
+            users.add(this.userService.getUserBySchoolNumber(schoolNumber));
+        }
+
+        Response response = new Response();
+        Map message = new HashMap();
+        response.setCode(0);
+        message.put("userList", users);
+        response.setMessage(message);
+
+        return response;
+    }
+    
+    @GetMapping("getMatchType")
+    public Response getMatchType(int matchId) {
+        MatchType[] matchTypes = matchTypeService.get(matchId);
+        Response response = new Response();
+        Map message = new HashMap();
+        response.setCode(0);
+        message.put("matchType", matchTypes);
+        response.setMessage(message);
+        return response;
+    }
 }

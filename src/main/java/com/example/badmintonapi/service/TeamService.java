@@ -4,4 +4,8 @@ import com.example.badmintonapi.domain.Team;
 
 public interface TeamService {
     public boolean insertTeam(Team team);
+
+    public Team getTeam(int matchId, String caption);
+
+    public Team getTeamById(int teamId);
 }

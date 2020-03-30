@@ -15,4 +15,9 @@ public class MatchTypeServiceImpl implements MatchTypeService {
         int result = matchTypeMapper.insert(matchType);
         return result == 1 ? true : false;
     }
+
+    @Override
+    public MatchType[] get(int matchId) {
+        return matchTypeMapper.get(matchId);
+    }
 }

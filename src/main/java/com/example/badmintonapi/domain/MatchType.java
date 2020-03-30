@@ -11,6 +11,9 @@ public class MatchType {
         return id;
     }
 
+    public MatchType() {
+    }
+
     public MatchType(int type, String text, int num, int matchId) {
         this.type = type;
         this.text = text;
