@@ -523,4 +523,37 @@ public class MatchController {
         response.setMessage(message);
         return response;
     }
+
+    @PostMapping("teamAgainst")
+    public Response teamAgainst(@RequestBody Map<String, String> params) {
+        int type = Integer.parseInt(params.get("type"));
+        System.out.println(type);
+        String user = params.get("user");
+        System.out.println(user);
+        int teamId = Integer.parseInt(params.get("teamId"));
+        System.out.println(teamId);
+        System.out.println("-------");
+        Team teamById = teamService.getTeamById(teamId);
+        Match matchById = matchService.getMatchById(teamById.getMatchId());
+        int round = matchById.getStatus();
+        String[] split = user.split("-");
+        for (String userId:
+             split) {
+            int uid = Integer.parseInt(userId);
+            TeamDetail select = teamDetailService.select(teamId, uid);
+            if(select.getType() == null) {
+                teamDetailService.update(teamId, uid, (round+1)+"-"+type);
+            }else {
+                teamDetailService.update(teamId, uid, select.getType()+","+(round+1)+"-"+type);
+            }
+        }
+
+        Response response = new Response();
+        Map message = new HashMap();
+        response.setCode(0);
+        message.put("result", true);
+        response.setMessage(message);
+
+        return response;
+    }
 }

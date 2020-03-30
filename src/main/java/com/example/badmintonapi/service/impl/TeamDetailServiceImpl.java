@@ -21,4 +21,15 @@ public class TeamDetailServiceImpl implements TeamDetailService {
     public TeamDetail[] getTeamDetail(int teamId) {
         return teamDetailMapper.getTeamDetail(teamId);
     }
+
+    @Override
+    public boolean update(int teamId, int userId, String type) {
+        int result = teamDetailMapper.update(teamId, userId, type);
+        return result == 1 ? true : false;
+    }
+
+    @Override
+    public TeamDetail select(int teamId, int userId) {
+        return teamDetailMapper.select(teamId, userId);
+    }
 }
