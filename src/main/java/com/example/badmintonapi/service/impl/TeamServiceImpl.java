@@ -26,4 +26,9 @@ public class TeamServiceImpl implements TeamService {
     public Team getTeamById(int teamId) {
         return teamMapper.getTeamById(teamId);
     }
+
+    @Override
+    public Team[] getTeamList(int matchId) {
+        return teamMapper.getTeamList(matchId);
+    }
 }

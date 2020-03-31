@@ -116,6 +116,11 @@ public class MatchController {
         team.setPeople(userList);
         team.setCaption(Integer.parseInt(userNumber[0]));
         this.teamService.insertTeam(team);
+        Confrontation confrontation = new Confrontation();
+        confrontation.setMatchId(id);
+        confrontation.setTeamId(team.getId());
+        confrontation.setEnd(0);
+        confrontationService.insert(confrontation);
         for(int i = 0; i < userNumber.length; i++) {
             User user = this.userService.getUserBySchoolNumber(userNumber[i]);
             //记录队长id
@@ -133,6 +138,8 @@ public class MatchController {
         }
         //更新match的enterID
         Match match = this.matchService.getMatchById(id);
+        match.setActualPlayer(match.getActualPlayer()+userNumber.length);
+        this.matchService.updateMatch(match);
         if(match.getEnterId() == null) {
             this.matchService.updateMatchEnterid(team.getId()+"", id);
         }else {
@@ -527,12 +534,8 @@ public class MatchController {
     @PostMapping("teamAgainst")
     public Response teamAgainst(@RequestBody Map<String, String> params) {
         int type = Integer.parseInt(params.get("type"));
-        System.out.println(type);
         String user = params.get("user");
-        System.out.println(user);
         int teamId = Integer.parseInt(params.get("teamId"));
-        System.out.println(teamId);
-        System.out.println("-------");
         Team teamById = teamService.getTeamById(teamId);
         Match matchById = matchService.getMatchById(teamById.getMatchId());
         int round = matchById.getStatus();

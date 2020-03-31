@@ -27,11 +27,23 @@ public class arrangeController {
     @Autowired
     MatchRoundService matchRoundService;
 
-    @GetMapping("list")
+    @Autowired
+    TeamService teamService;
+
+    @Autowired
+    MatchTypeService matchTypeService;
+
+    @Autowired
+    TeamDetailService teamDetailService;
+
+    @GetMapping("singleList")
     List<Arrange> getList() {
         Match[] matches = matchService.getIngMatch();
         List<Arrange> arranges = new ArrayList<Arrange>();
         for (int i = 0,len = matches.length; i < len; i++) {
+            if(matches[i].getIsTeamUp()==1) {
+                continue;
+            }
             int id = matches[i].getId();
             Confrontation[] confrontations = confrontationService.getList(0,  id);
             boolean judge = true;
@@ -59,6 +71,37 @@ public class arrangeController {
         return arranges;
     }
 
+    @GetMapping("teamList")
+    List<Arrange> teamList() {
+        Match[] matches = matchService.getIngMatch();
+        List<Arrange> arranges = new ArrayList<Arrange>();
+        for (int i = 0,len = matches.length; i < len; i++) {
+            if(matches[i].getIsTeamUp()==0) {
+                continue;
+            }
+            int id = matches[i].getId();
+            Confrontation[] confrontations = confrontationService.getList(0,  id);
+            boolean judge = true;
+            MatchResult[] matchResults = matchResultService.getMatchResultByMatchId(id);
+            for (MatchResult matchResult:
+                 matchResults) {
+                if(matchResult.getGrade() == null) {
+                    judge = false;
+                }
+            }
+            Arrange arrange = new Arrange();
+            arrange.setId(i);
+            arrange.setName(matches[i].getName());
+            arrange.setAllNum(matches[i].getPlayer());
+            arrange.setNowNum(confrontations.length);
+            arrange.setStatus(judge ? 1 : 0);
+            arrange.setRound(matches[i].getStatus());
+            arrange.setMatchId(matches[i].getId());
+            arranges.add(arrange);
+        }
+        return arranges;
+    }
+
     @GetMapping("confrontation")
     MatchResult[] getListByMatchId(int matchId) {
         return this.matchResultService.getMatchResultByMatchId(matchId);
@@ -68,7 +111,7 @@ public class arrangeController {
     Response auto(int matchId, String address, int sort, String roundName) {
         Response response = new Response();
         Map message = new HashMap<>();
-        try {
+//        try {
             //sort积分排序or随机排序
             Match match = this.matchService.getMatchById(matchId);
             match.setStatus(match.getStatus()+1);
@@ -89,20 +132,20 @@ public class arrangeController {
                     refereeId) {
                 refereeList.add(this.userService.getUserByUid(Integer.parseInt(id)));
             }
-            if(sort == 1) {
-                Collections.sort(refereeList, new Comparator<User>() {
-                    @Override
-                    public int compare(User o1, User o2) {
-                        return o1.getGrade() - o2.getGrade();
-                    }
-                });
-            }else {
-                Collections.shuffle(refereeList);
-            }
+
             if(match.getIsTeamUp() == 0) { //不允许组队
+                if(sort == 1) {
+                    Collections.sort(refereeList, new Comparator<User>() {
+                        @Override
+                        public int compare(User o1, User o2) {
+                            return o1.getGrade() - o2.getGrade();
+                        }
+                    });
+                }else {
+                    Collections.shuffle(refereeList);
+                }
                 Confrontation[] list = this.confrontationService.getList(0, matchId);
                 int nullNum = judgeNull(list.length);
-                System.out.println(nullNum);
                 for(int i = 0, len = list.length; i < len - nullNum; i+=2) {
                     System.out.println("i"+i);
                     if(match.getStatus()==1) {
@@ -144,17 +187,17 @@ public class arrangeController {
                     this.matchResultService.insert(matchResult);
                 }
             }else { //允许组队
-
+                teamAuto(refereeList, addressList, matchId, round);
             }
             response.setCode(0);
             message.put("result", true);
             response.setMessage(message);
-        }catch (Exception e) {
-            System.out.println(e);
-            response.setCode(-1);
-            message.put("error", e);
-            response.setMessage(message);
-        }
+//        }catch (Exception e) {
+//            System.out.println(e);
+//            response.setCode(-1);
+//            message.put("error", e);
+//            response.setMessage(message);
+//        }
         return response;
     }
 
@@ -164,5 +207,75 @@ public class arrangeController {
             i++;
         }
         return (int)Math.pow(2, i) - num;
+    }
+
+    public String getUser(TeamDetail[] teamDetails) {
+        if(teamDetails.length == 1) {
+            User user = userService.getUserByUid(teamDetails[0].getUserId());
+
+            return user.getName();
+        }else {
+            User user1 = userService.getUserByUid(teamDetails[0].getUserId());
+            User user2 = userService.getUserByUid(teamDetails[1].getUserId());
+
+            return user1.getName()+"/"+user2.getName();
+        }
+    }
+
+    public void teamAuto(List<User> refereeList, String[] addressList, int matchId, int round) {
+        Confrontation[] list = this.confrontationService.getList(0, matchId);
+        Match match = this.matchService.getMatchById(matchId);
+        int refereeNum = 0;
+        int addressNum = 0;
+        int nullNum = judgeNull(list.length);
+        for(int i = 0, len = list.length; i < len - nullNum; i+=2) {
+            if (match.getStatus() == 1) {
+                this.confrontationService.updateMatch(round + "-" + (i + 1 + ""), list[i].getId());
+                this.confrontationService.updateMatch(round + "-" + (i + 1 + ""), list[i + 1].getId());
+            } else {
+                this.confrontationService.updateMatch(list[i].getMatch() + "," + round + "-" + (i + 1 + ""), list[i].getId());
+                this.confrontationService.updateMatch(list[i + 1].getMatch() + "," + round + "-" + (i + 1 + ""), list[i + 1].getId());
+            }
+            MatchType[] matchTypes = matchTypeService.get(matchId);
+            for (MatchType matchType:
+                 matchTypes) {
+                String type = round+"-"+matchType.getType();
+                System.out.println(list[i].getTeamId());
+                System.out.println(type);
+                TeamDetail[] teamDetails1 = teamDetailService.get(list[i].getTeamId(), type);
+                TeamDetail[] teamDetails2 = teamDetailService.get(list[i + 1].getTeamId(), type);
+                Team team1 = teamService.getTeamById(list[i].getTeamId());
+                Team team2 = teamService.getTeamById(list[i+1].getTeamId());
+                MatchResult matchResult = new MatchResult();
+                matchResult.setRound(round);
+                matchResult.setContestant(team1.getId()+ "-" + team2.getId());
+                matchResult.setMatchId(matchId);
+                matchResult.setTeam1(getUser(teamDetails1));
+                matchResult.setTeam2(getUser(teamDetails2));
+                User user = refereeList.get(refereeNum);
+                matchResult.setReferee(user.getUid());
+                matchResult.setRefereeName(user.getName());
+                refereeNum++;
+                refereeNum = refereeNum % refereeList.toArray().length;
+                matchResult.setAddress(addressList[addressNum]);
+                addressNum++;
+                addressNum = addressNum % addressList.length;
+                matchResult.setType(matchType.getText());
+                matchResultService.insert(matchResult);
+            }
+        }
+        for(int len = list.length, i = len - nullNum; i < len; i++) {
+//            MatchResult matchResult = new MatchResult();
+            if(match.getStatus()==1) {
+                this.confrontationService.updateMatch(round+"-"+"0", list[i].getId());
+            }else {
+                this.confrontationService.updateMatch(list[i].getMatch()+","+round+"-"+"0", list[i].getId());
+            }
+//            User user = this.userService.getUserByUid(list[i].getTeamId());
+//            matchResult.setContestant("");
+//            matchResult.setRound(round);
+//            matchResult.setTeam1(user.getUsername());
+//            this.matchResultService.insert(matchResult);
+        }
     }
 }

@@ -17,4 +17,7 @@ public interface TeamDetailMapper {
 
     @Select("select * from `team-detail` where teamId=#{teamId} and userId=#{userId}")
     public TeamDetail select(int teamId, int userId);
+
+    @Select("select * from `team-detail` where teamId=#{teamId} and type like concat('%', #{type}, '%')")
+    public TeamDetail[] get(int teamId, String type);
 }

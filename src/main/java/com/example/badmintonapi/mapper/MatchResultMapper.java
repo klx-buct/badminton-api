@@ -12,7 +12,7 @@ public interface MatchResultMapper {
     @Select("select * from `match-result` where matchId=#{matchId}")
     MatchResult[] getMatchResultByMatchId(int matchId);
 
-    @Insert("insert into `match-result`(matchId, round, contestant, team1, team2, referee, refereeName, address) values(#{matchId}, #{round}, #{contestant}, #{team1}, #{team2}, #{referee}, #{refereeName}, #{address})")
+    @Insert("insert into `match-result`(matchId, round, contestant, team1, team2, referee, refereeName, address, type) values(#{matchId}, #{round}, #{contestant}, #{team1}, #{team2}, #{referee}, #{refereeName}, #{address}, #{type})")
     int insert(MatchResult matchResult);
 
     @Select("select * from `match-result` where matchId=#{matchId} and contestant=#{contestant}")

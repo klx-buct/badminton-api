@@ -10,4 +10,6 @@ public interface TeamDetailService {
     public boolean update(int teamId, int userId, String type);
 
     public TeamDetail select(int teamId, int userId);
+
+    public TeamDetail[] get(int teamId, String type);
 }

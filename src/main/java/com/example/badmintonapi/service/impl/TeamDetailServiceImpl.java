@@ -32,4 +32,9 @@ public class TeamDetailServiceImpl implements TeamDetailService {
     public TeamDetail select(int teamId, int userId) {
         return teamDetailMapper.select(teamId, userId);
     }
+
+    @Override
+    public TeamDetail[] get(int teamId, String type) {
+        return teamDetailMapper.get(teamId, type);
+    }
 }

@@ -8,4 +8,6 @@ public interface TeamService {
     public Team getTeam(int matchId, String caption);
 
     public Team getTeamById(int teamId);
+
+    public Team[] getTeamList(int matchId);
 }
