@@ -10,4 +10,6 @@ public interface TeamService {
     public Team getTeamById(int teamId);
 
     public Team[] getTeamList(int matchId);
+
+    public Team[] getInTeam(int matchId);
 }

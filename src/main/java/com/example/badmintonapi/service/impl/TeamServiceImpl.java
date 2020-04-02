@@ -31,4 +31,9 @@ public class TeamServiceImpl implements TeamService {
     public Team[] getTeamList(int matchId) {
         return teamMapper.getTeamList(matchId);
     }
+
+    @Override
+    public Team[] getInTeam(int matchId) {
+        return teamMapper.getInTeam(matchId);
+    }
 }

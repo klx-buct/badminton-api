@@ -48,4 +48,9 @@ public class ConfrontationServiceImpl implements ConfrontationService {
         int result = confrontationMapper.updateEnd(end, id);
         return result == 1 ? true : false;
     }
+
+    @Override
+    public Confrontation[] findTwo(int matchId, String match) {
+        return confrontationMapper.findTwo(matchId, match);
+    }
 }

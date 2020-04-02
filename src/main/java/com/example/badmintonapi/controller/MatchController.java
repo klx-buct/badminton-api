@@ -284,7 +284,7 @@ public class MatchController {
                     message.put("matchName", match.getName());
                     message.put("team1", user.getUsername());
                     message.put("team2", user2.getUsername());
-                    MatchResult item = this.matchResultService.getItem(matchId, user.getUid() + "-" + user2.getUid());
+                    MatchResult item = this.matchResultService.getItem(matchId, user.getUid() + "-" + user2.getUid(), user2.getUid() + "-" + user.getUid());
                     message.put("address", item.getAddress());
                     message.put("referee", item.getRefereeName());
                     response.setMessage(message);

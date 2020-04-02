@@ -16,4 +16,6 @@ public interface ConfrontationService {
     public Confrontation findOpponent(int matchId, String match, int nowUid);
 
     public boolean updateEnd(int end, int id);
+
+    public Confrontation[] findTwo(int matchId, String match);
 }

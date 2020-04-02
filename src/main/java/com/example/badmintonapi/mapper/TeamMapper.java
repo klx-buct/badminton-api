@@ -18,4 +18,7 @@ public interface TeamMapper {
 
     @Select("select * from team where matchId=#{matchId}")
     Team[] getTeamList(int matchId);
+
+    @Select("select * from team where matchId=#{matchId} and end!=-1")
+    Team[] getInTeam(int matchId);
 }

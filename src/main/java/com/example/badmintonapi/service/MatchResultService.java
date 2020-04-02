@@ -9,11 +9,13 @@ public interface MatchResultService {
 
     public boolean insert(MatchResult matchResult);
 
-    public MatchResult getItem(int matchId, String contestant);
+    public MatchResult getItem(int matchId, String contestant, String contestant2);
 
     public MatchResult[] getUserReferee(int uid);
 
     public boolean updateResult(MatchResult matchResult);
 
     public MatchResult getResultById(int id);
+
+    public MatchResult[] getItems(int matchId, String contestant, String contestant2);
 }

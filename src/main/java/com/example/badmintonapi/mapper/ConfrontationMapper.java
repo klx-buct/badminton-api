@@ -26,4 +26,7 @@ public interface ConfrontationMapper {
 
     @Update("update confrontation set end=#{end} where id=#{id}")
     int updateEnd(int end, int id);
+
+    @Select("select * from confrontation where matchId=#{matchId} and `match` like concat('%', #{match}, '%')")
+    Confrontation[] findTwo(int matchId, String match);
 }

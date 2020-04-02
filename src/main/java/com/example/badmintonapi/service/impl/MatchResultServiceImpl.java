@@ -28,8 +28,8 @@ public class MatchResultServiceImpl implements MatchResultService {
     }
 
     @Override
-    public MatchResult getItem(int matchId, String contestant) {
-        return matchResultMapper.getItem(matchId, contestant);
+    public MatchResult getItem(int matchId, String contestant, String contestant2) {
+        return matchResultMapper.getItem(matchId, contestant, contestant2);
     }
 
     @Override
@@ -47,5 +47,10 @@ public class MatchResultServiceImpl implements MatchResultService {
     @Override
     public MatchResult getResultById(int id) {
         return matchResultMapper.getResultById(id);
+    }
+
+    @Override
+    public MatchResult[] getItems(int matchId, String contestant, String contestant2) {
+        return matchResultMapper.getItems(matchId, contestant, contestant2);
     }
 }

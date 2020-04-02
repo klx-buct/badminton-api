@@ -278,4 +278,35 @@ public class arrangeController {
 //            this.matchResultService.insert(matchResult);
         }
     }
+
+    @GetMapping("teamConfrontation")
+    public Response teamConfrontation(int matchId) {
+        Confrontation[] list1 = confrontationService.getList(0, matchId);
+        int length = list1.length;
+        int actual = (length - judgeNull(length))/2;
+        Match matchById = matchService.getMatchById(matchId);
+        int round = matchById.getStatus();
+        List<Map> list = new ArrayList();
+        for(int i = 1;i <= actual; i++) {
+            String match = round+"-"+i;
+            Confrontation[] two = confrontationService.findTwo(matchId, match);
+            System.out.println(two.length);
+            Team team1 = teamService.getTeamById(two[0].getTeamId());
+            Team team2 = teamService.getTeamById(two[1].getTeamId());
+            String contestant = team1.getId() + "-" + team2.getId();
+            MatchResult[] items = matchResultService.getItems(matchId, team1.getId() + "-" + team2.getId(), team2.getId() + "-" + team1.getId());
+            Map map = new HashMap();
+            map.put("team", team1.getName()+"-"+team2.getName());
+            map.put("detail", items);
+            list.add(map);
+        }
+
+        Response response = new Response();
+        Map message = new HashMap();
+        response.setCode(0);
+        message.put("result", list);
+        response.setMessage(message);
+
+        return response;
+    }
 }
