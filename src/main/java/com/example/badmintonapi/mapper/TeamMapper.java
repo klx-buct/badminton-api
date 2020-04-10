@@ -4,6 +4,7 @@ import com.example.badmintonapi.domain.Team;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface TeamMapper {
     @Insert("insert into team(matchId, name, people, caption, grade, victor) values(#{matchId}, #{name}, #{people}, #{caption}, #{grade}, #{victor})")
@@ -21,4 +22,7 @@ public interface TeamMapper {
 
     @Select("select * from team where matchId=#{matchId} and end!=-1")
     Team[] getInTeam(int matchId);
+
+    @Update("update team set grade=#{grade}, victor=#{victor} where id=#{teamId}")
+    int update(String grade, String victor, int teamId);
 }

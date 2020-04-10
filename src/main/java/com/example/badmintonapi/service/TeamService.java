@@ -12,4 +12,6 @@ public interface TeamService {
     public Team[] getTeamList(int matchId);
 
     public Team[] getInTeam(int matchId);
+
+    public boolean update(String grade, String victor, int teamId);
 }

@@ -36,4 +36,11 @@ public class TeamServiceImpl implements TeamService {
     public Team[] getInTeam(int matchId) {
         return teamMapper.getInTeam(matchId);
     }
+
+    @Override
+    public boolean update(String grade, String victor, int teamId) {
+        int result = teamMapper.update(grade, victor, teamId);
+
+        return result == 1 ? true : false;
+    }
 }

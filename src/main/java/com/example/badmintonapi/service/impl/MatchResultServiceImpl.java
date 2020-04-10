@@ -53,4 +53,9 @@ public class MatchResultServiceImpl implements MatchResultService {
     public MatchResult[] getItems(int matchId, String contestant, String contestant2) {
         return matchResultMapper.getItems(matchId, contestant, contestant2);
     }
+
+    @Override
+    public MatchResult getUserMatch(String name) {
+        return matchResultMapper.getUserMatch(name);
+    }
 }

@@ -1,7 +1,9 @@
 package com.example.badmintonapi.controller;
 
+import com.example.badmintonapi.domain.Image;
 import com.example.badmintonapi.domain.Notice;
 import com.example.badmintonapi.domain.Response;
+import com.example.badmintonapi.service.ImageService;
 import com.example.badmintonapi.service.NoticeService;
 import com.sun.tools.corba.se.idl.constExpr.Not;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ import java.util.Map;
 public class NoticeController {
     @Autowired
     NoticeService noticeService;
+
+    @Autowired
+    ImageService imageService;
 
     @PostMapping("insert")
     public boolean insertNotice(@RequestBody Notice notice) {
@@ -48,6 +53,16 @@ public class NoticeController {
         message.put("notices", notices);
         response.setMessage(message);
         return response;
+    }
+
+    @PostMapping("updateImg")
+    public boolean update(@RequestBody Image image) {
+        return imageService.update(image.getImgUrl(), "home");
+    }
+
+    @GetMapping("homeImg")
+    public Image select() {
+        return imageService.select("home");
     }
 }
 

@@ -18,4 +18,6 @@ public interface MatchResultService {
     public MatchResult getResultById(int id);
 
     public MatchResult[] getItems(int matchId, String contestant, String contestant2);
+
+    public MatchResult getUserMatch(String name);
 }

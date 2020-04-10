@@ -2,6 +2,9 @@ package com.example.badmintonapi.controller;
 
 import com.example.badmintonapi.domain.*;
 import com.example.badmintonapi.service.*;
+import com.sun.tools.javac.util.ArrayUtils;
+import org.apache.ibatis.reflection.ArrayUtil;
+import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -290,7 +293,17 @@ public class MatchController {
                     response.setMessage(message);
                 }
             }else { //允许组队
-
+                User user = userService.getUserByUid(uid);
+                MatchResult userMatch = matchResultService.getUserMatch(user.getName());
+                MatchRound matchRound = this.matchRoundService.getMatchRound(userMatch.getRound(), matchId);
+                message.put("roundName", matchRound.getText());
+                message.put("null", false);
+                message.put("matchName", match.getName());
+                message.put("team1", userMatch.getTeam1());
+                message.put("team2", userMatch.getTeam2());
+                message.put("address", userMatch.getAddress());
+                message.put("referee", userMatch.getRefereeName());
+                response.setMessage(message);
             }
         }catch (Exception e) {
             response.setCode(-1);
@@ -337,19 +350,40 @@ public class MatchController {
             matchResult.setGrade(grade);
             boolean res = this.matchResultService.updateResult(matchResult);
             MatchResult resultById = this.matchResultService.getResultById(id);
+            int matchId = resultById.getMatchId();
+            Match match = matchService.getMatchById(matchId);
             String contestant = resultById.getContestant();
             String[] uids = contestant.split("-");
             String[] grades = grade.split("-");
-            Confrontation confrontation;
-            if(Integer.parseInt(grades[0]) < Integer.parseInt(grades[1])) {
-                confrontation = this.confrontationService.userMatch(resultById.getMatchId(), Integer.parseInt(uids[0]));
+            if(match.getIsTeamUp() == 0) {
+                Confrontation confrontation;
+                if(Integer.parseInt(grades[0]) < Integer.parseInt(grades[1])) {
+                    confrontation = this.confrontationService.userMatch(resultById.getMatchId(), Integer.parseInt(uids[0]));
+                }else {
+                    confrontation = this.confrontationService.userMatch(resultById.getMatchId(), Integer.parseInt(uids[1]));
+                }
+                this.confrontationService.updateEnd(resultById.getRound(), confrontation.getId());
+                message.put("result", res);
+                response.setCode(0);
+                response.setMessage(message);
             }else {
-                confrontation = this.confrontationService.userMatch(resultById.getMatchId(), Integer.parseInt(uids[1]));
+                Team team1 = teamService.getTeamById(Integer.parseInt(uids[0]));
+                Team team2 = teamService.getTeamById(Integer.parseInt(uids[1]));
+                if(Integer.parseInt(grades[0]) < Integer.parseInt(grades[1])) {
+                    if(team1.getGrade() == null) {
+                        teamService.update(grades[0], "0", team1.getId());
+                    }else {
+                        if(team1.getGrade().split(",").length == match.getStatus()) {
+                            String[] split = team1.getGrade().split(",");
+                            split[split.length - 1] = Integer.parseInt(split[split.length - 1])+Integer.parseInt(grades[0])+"";
+
+                        }else {
+
+                        }
+                    }
+                }else {
+                }
             }
-            this.confrontationService.updateEnd(resultById.getRound(), confrontation.getId());
-            message.put("result", res);
-            response.setCode(0);
-            response.setMessage(message);
         }catch (Exception e) {
             response.setCode(-1);
             message.put("error", e);
@@ -558,5 +592,31 @@ public class MatchController {
         response.setMessage(message);
 
         return response;
+    }
+
+    @GetMapping("history")
+    public Response history(int uid) {
+        Response response = new Response();
+        User user = userService.getUserByUid(uid);
+        if(user.getJoinMatch() != null) {
+
+        }else {
+            String[] matchList = user.getJoinMatch().split("-");
+            for (String matchId:
+                 matchList) {
+                Match match = matchService.getMatchById(Integer.parseInt(matchId));
+                if(match.getStatus() != -1) {
+                    continue;
+                }
+
+            }
+        }
+
+        return response;
+    }
+
+    @GetMapping("matchResult")
+    public MatchResult getMatchResult(int id) {
+        return matchResultService.getResultById(id);
     }
 }
