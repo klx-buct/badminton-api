@@ -118,4 +118,20 @@ public class UserController {
 
         return response;
     }
+
+    @PostMapping("update")
+    public boolean update(@RequestBody Map<String, String> params) {
+        String type = params.get("type");
+        String value = params.get("value");
+        int uid = Integer.parseInt(params.get("uid"));
+        User user = userService.getUserByUid(uid);
+        switch (type) {
+            case "username": user.setUsername(value);break;
+            case "email": user.setEmail(value);break;
+            case "phone": user.setPhone(value);break;
+            case "introduce": user.setIntroduce(value);break;
+        }
+
+        return userService.updateMessage(user);
+    }
 }

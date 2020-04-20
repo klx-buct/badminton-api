@@ -1,0 +1,110 @@
+Date : 2020-04-19 15:22:09
+Directory : /Users/klx/code/badminton-api/src
+Total : 68 files,  2927 codes, 32 comments, 793 blanks, all 3752 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| Java       |         67 |      2,923 |         32 |        793 |      3,748 |
+| Properties |          1 |          4 |          0 |          0 |          4 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                            | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                               |         68 |      2,927 |         32 |        793 |      3,752 |
+| main                                                                                                            |         67 |      2,918 |         32 |        788 |      3,738 |
+| main/java                                                                                                       |         66 |      2,914 |         32 |        788 |      3,734 |
+| main/java/com                                                                                                   |         66 |      2,914 |         32 |        788 |      3,734 |
+| main/java/com/example                                                                                           |         66 |      2,914 |         32 |        788 |      3,734 |
+| main/java/com/example/badmintonapi                                                                              |         66 |      2,914 |         32 |        788 |      3,734 |
+| main/java/com/example/badmintonapi/controller                                                                   |          7 |      1,151 |         22 |        128 |      1,301 |
+| main/java/com/example/badmintonapi/domain                                                                       |         15 |        901 |          0 |        346 |      1,247 |
+| main/java/com/example/badmintonapi/intercpter                                                                   |          2 |         37 |          6 |         13 |         56 |
+| main/java/com/example/badmintonapi/mapper                                                                       |         13 |        217 |          0 |         90 |        307 |
+| main/java/com/example/badmintonapi/service                                                                      |         28 |        597 |          4 |        206 |        807 |
+| main/java/com/example/badmintonapi/service/impl                                                                 |         14 |        475 |          4 |        113 |        592 |
+| main/resources                                                                                                  |          1 |          4 |          0 |          0 |          4 |
+| test                                                                                                            |          1 |          9 |          0 |          5 |         14 |
+| test/java                                                                                                       |          1 |          9 |          0 |          5 |         14 |
+| test/java/com                                                                                                   |          1 |          9 |          0 |          5 |         14 |
+| test/java/com/example                                                                                           |          1 |          9 |          0 |          5 |         14 |
+| test/java/com/example/badmintonapi                                                                              |          1 |          9 |          0 |          5 |         14 |
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                        | language   | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/BadmintonApiApplication.java               | Java       |         11 |          0 |          5 |         16 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/controller/MatchController.java            | Java       |        571 |          4 |         58 |        633 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/controller/NoticeController.java           | Java       |         69 |          3 |         12 |         84 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/controller/PrizeController.java            | Java       |         44 |          0 |          6 |         50 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/controller/RefereeController.java          | Java       |         62 |          0 |          5 |         67 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/controller/TypeController.java             | Java       |         26 |          0 |          6 |         32 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/controller/UserController.java             | Java       |        106 |          0 |         16 |        122 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/controller/arrangeController.java          | Java       |        273 |         15 |         25 |        313 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/domain/Arrange.java                        | Java       |         52 |          0 |         16 |         68 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/domain/Confrontation.java                  | Java       |         73 |          0 |         31 |        104 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/domain/Image.java                          | Java       |         24 |          0 |          8 |         32 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/domain/Match.java                          | Java       |        164 |          0 |         70 |        234 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/domain/MatchResult.java                    | Java       |         94 |          0 |         37 |        131 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/domain/MatchRound.java                     | Java       |         31 |          0 |         10 |         41 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/domain/MatchType.java                      | Java       |         46 |          0 |         14 |         60 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/domain/Notice.java                         | Java       |         45 |          0 |         19 |         64 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/domain/Prize.java                          | Java       |         45 |          0 |         14 |         59 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/domain/Referee.java                        | Java       |         52 |          0 |         22 |         74 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/domain/Response.java                       | Java       |         18 |          0 |          8 |         26 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/domain/Team.java                           | Java       |         52 |          0 |         16 |         68 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/domain/TeamDetail.java                     | Java       |         38 |          0 |         12 |         50 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/domain/Type.java                           | Java       |         24 |          0 |          8 |         32 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/domain/User.java                           | Java       |        143 |          0 |         61 |        204 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/intercpter/CustomWebMvcConfigurer.java     | Java       |         16 |          4 |          4 |         24 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/intercpter/LoginIntercpter.java            | Java       |         21 |          2 |          9 |         32 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/mapper/ConfrontationMapper.java            | Java       |         23 |          0 |         10 |         33 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/mapper/ImageMapper.java                    | Java       |         10 |          0 |          4 |         14 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/mapper/MatchMapper.java                    | Java       |         33 |          0 |         12 |         45 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/mapper/MatchResultMapper.java              | Java       |         25 |          0 |         12 |         37 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/mapper/MatchRoundMapper.java               | Java       |         12 |          0 |          5 |         17 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/mapper/MatchTypeMapper.java                | Java       |         10 |          0 |          4 |         14 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/mapper/NoticeMapper.java                   | Java       |         10 |          0 |          4 |         14 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/mapper/PrizeMapper.java                    | Java       |         10 |          0 |          4 |         14 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/mapper/RefereeMapper.java                  | Java       |         10 |          0 |          4 |         14 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/mapper/TeamDetailMapper.java               | Java       |         17 |          0 |          7 |         24 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/mapper/TeamMapper.java                     | Java       |         21 |          0 |          8 |         29 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/mapper/TypeMapper.java                     | Java       |          7 |          0 |          4 |         11 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/mapper/UserMapper.java                     | Java       |         29 |          0 |         12 |         41 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/ConfrontationService.java          | Java       |         12 |          0 |         10 |         22 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/ImageService.java                  | Java       |          6 |          0 |          4 |         10 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/MatchResultService.java            | Java       |         13 |          0 |         11 |         24 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/MatchRoundService.java             | Java       |          7 |          0 |          5 |         12 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/MatchService.java                  | Java       |         14 |          0 |         12 |         26 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/MatchTypeService.java              | Java       |          6 |          0 |          4 |         10 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/NoticeService.java                 | Java       |          6 |          0 |          3 |          9 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/PrizeService.java                  | Java       |          6 |          0 |          4 |         10 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/RefereeService.java                | Java       |          6 |          0 |          4 |         10 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/TeamDetailService.java             | Java       |          9 |          0 |          7 |         16 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/TeamService.java                   | Java       |         10 |          0 |          8 |         18 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/TokenService.java                  | Java       |          7 |          0 |          5 |         12 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/TypeService.java                   | Java       |          6 |          0 |          4 |         10 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/UserService.java                   | Java       |         14 |          0 |         12 |         26 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/impl/ConfrontationServiceImpl.java | Java       |         46 |          0 |         11 |         57 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/impl/ImageServiceImpl.java         | Java       |         20 |          0 |          5 |         25 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/impl/MatchResultServiceImpl.java   | Java       |         49 |          0 |         13 |         62 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/impl/MatchRoundServiceImpl.java    | Java       |         24 |          0 |          6 |         30 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/impl/MatchServiceImpl.java         | Java       |         56 |          0 |         13 |         69 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/impl/MatchTypeServiceImpl.java     | Java       |         20 |          0 |          4 |         24 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/impl/NoticeServiceImpl.java        | Java       |         19 |          0 |          5 |         24 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/impl/PrizeServiceImpl.java         | Java       |         20 |          0 |          4 |         24 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/impl/RefereeImpl.java              | Java       |         20 |          0 |          5 |         25 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/impl/TeamDetailServiceImpl.java    | Java       |         33 |          0 |          8 |         41 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/impl/TeamServiceImpl.java          | Java       |         37 |          0 |         10 |         47 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/impl/TokenServiceImpl.java         | Java       |         61 |          4 |          9 |         74 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/impl/TypeServiceImpl.java          | Java       |         15 |          0 |          5 |         20 |
+| /Users/klx/code/badminton-api/src/main/java/com/example/badmintonapi/service/impl/UserServiceImpl.java          | Java       |         55 |          0 |         15 |         70 |
+| /Users/klx/code/badminton-api/src/main/resources/application.properties                                         | Properties |          4 |          0 |          0 |          4 |
+| /Users/klx/code/badminton-api/src/test/java/com/example/badmintonapi/BadmintonApiApplicationTests.java          | Java       |          9 |          0 |          5 |         14 |
+| Total                                                                                                           |            |      2,927 |         32 |        793 |      3,752 |
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

@@ -15,4 +15,9 @@ public class PrizeServiceImpl implements PrizeService {
         int result = prizeMapper.insert(prize);
         return result == 1 ? true : false;
     }
+
+    @Override
+    public Prize[] select(int matchId) {
+        return prizeMapper.select(matchId);
+    }
 }

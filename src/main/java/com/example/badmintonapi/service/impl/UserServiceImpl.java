@@ -65,5 +65,12 @@ public class UserServiceImpl implements UserService {
         return result == 1 ? true : false;
     }
 
+    @Override
+    public boolean updateMessage(User user) {
+        int res = userMapper.updateMessage(user);
+
+        return res == 1 ? true : false;
+    }
+
 
 }

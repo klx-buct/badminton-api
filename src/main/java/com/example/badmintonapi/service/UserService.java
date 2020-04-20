@@ -22,4 +22,6 @@ public interface UserService {
     public User getUserByUid(int uid);
 
     public boolean updateRefereeMatch(String refereeMatch, int id);
+
+    public boolean updateMessage(User user);
 }

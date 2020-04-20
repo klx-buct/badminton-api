@@ -37,4 +37,7 @@ public interface UserMapper {
 
     @Update("update `user-detail` set refereeMatch=#{refereeMatch} where id=#{id}")
     int updateRefereeMatch(String refereeMatch, int id);
+
+    @Update("update `user-detail` set email=#{email}, phone=#{phone}, introduce=#{introduce}")
+    int updateMessage(User user);
 }
