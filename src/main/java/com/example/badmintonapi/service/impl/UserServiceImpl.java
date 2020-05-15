@@ -72,5 +72,19 @@ public class UserServiceImpl implements UserService {
         return res == 1 ? true : false;
     }
 
+    @Override
+    public boolean updateUsername(User user) {
+        int res = userMapper.updateUsername(user);
+
+        return res == 1 ? true : false;
+    }
+
+    @Override
+    public boolean updateForbid(int forbid, int id) {
+        int res = userMapper.updateForbid(forbid, id);
+
+        return res == 1 ? true : false;
+    }
+
 
 }

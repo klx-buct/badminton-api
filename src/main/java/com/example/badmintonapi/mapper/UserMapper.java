@@ -38,6 +38,12 @@ public interface UserMapper {
     @Update("update `user-detail` set refereeMatch=#{refereeMatch} where id=#{id}")
     int updateRefereeMatch(String refereeMatch, int id);
 
-    @Update("update `user-detail` set email=#{email}, phone=#{phone}, introduce=#{introduce}")
+    @Update("update `user-detail` set email=#{email}, phone=#{phone}, introduce=#{introduce}, username=#{username} where uid=#{uid}")
     int updateMessage(User user);
+
+    @Update("update `user` set username=#{username} where id=#{uid}")
+    int updateUsername(User user);
+
+    @Update("update user set forbid=#{forbid} where id=#{id}")
+    int updateForbid(int forbid, int id);
 }

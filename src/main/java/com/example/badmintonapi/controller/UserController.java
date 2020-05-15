@@ -45,6 +45,10 @@ public class UserController {
 
         User res = userService.select(user);
         if(res != null) {
+            if(res.getForbid() == 1) {
+                response.setCode(-1);
+                return response;
+            }
             String token = tokenService.initToken(username, md5Password, remember);
             tokenService.getUser(token);
             message.put("token", token);
@@ -126,12 +130,17 @@ public class UserController {
         int uid = Integer.parseInt(params.get("uid"));
         User user = userService.getUserByUid(uid);
         switch (type) {
-            case "username": user.setUsername(value);break;
-            case "email": user.setEmail(value);break;
-            case "phone": user.setPhone(value);break;
-            case "introduce": user.setIntroduce(value);break;
+            case "username": user.setUsername(value);userService.updateMessage(user);return userService.updateUsername(user);
+            case "email": user.setEmail(value);return userService.updateMessage(user);
+            case "phone": user.setPhone(value);return userService.updateMessage(user);
+            case "introduce": user.setIntroduce(value);return userService.updateMessage(user);
+            default:return false;
         }
+    }
 
-        return userService.updateMessage(user);
+    @PostMapping("forbid")
+    public boolean forbid(@RequestBody Map<String, String> params) {
+        int id = Integer.parseInt(params.get("id"));
+        return userService.updateForbid(1, id);
     }
 }

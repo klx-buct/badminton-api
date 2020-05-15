@@ -16,4 +16,16 @@ public class FeedbackServiceImpl implements FeedbackService {
 
         return res == 1 ? true : false;
     }
+
+    @Override
+    public Feedback[] list() {
+        return feedbackMapper.list();
+    }
+
+    @Override
+    public boolean update(int status, int id) {
+        int res = feedbackMapper.update(status, id);
+
+        return res == 1 ? true : false;
+    }
 }

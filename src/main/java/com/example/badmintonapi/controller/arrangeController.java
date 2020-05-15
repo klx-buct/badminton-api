@@ -215,6 +215,8 @@ public class arrangeController {
 
             return user.getName();
         }else {
+            System.out.println("teamDetails");
+            System.out.println(teamDetails.length);
             User user1 = userService.getUserByUid(teamDetails[0].getUserId());
             User user2 = userService.getUserByUid(teamDetails[1].getUserId());
 
@@ -289,8 +291,11 @@ public class arrangeController {
         List<Map> list = new ArrayList();
         for(int i = 1;i <= actual; i++) {
             String match = round+"-"+i;
+            System.out.println(matchId);
+            System.out.println(match);
             Confrontation[] two = confrontationService.findTwo(matchId, match);
             System.out.println(two.length);
+            System.out.println(two[0].getTeamId());
             Team team1 = teamService.getTeamById(two[0].getTeamId());
             Team team2 = teamService.getTeamById(two[1].getTeamId());
             String contestant = team1.getId() + "-" + team2.getId();

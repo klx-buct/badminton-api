@@ -24,4 +24,8 @@ public interface UserService {
     public boolean updateRefereeMatch(String refereeMatch, int id);
 
     public boolean updateMessage(User user);
+
+    public boolean updateUsername(User user);
+
+    public boolean updateForbid(int forbid, int id);
 }

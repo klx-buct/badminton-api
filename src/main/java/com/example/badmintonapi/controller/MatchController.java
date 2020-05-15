@@ -271,7 +271,7 @@ public class MatchController {
     public Response arrange(int uid, int matchId) {
         Response response = new Response();
         Map message = new HashMap();
-        try{
+//        try{
             Match match = this.matchService.getMatchById(matchId);
             if(match.getIsTeamUp() == 0) { //不允许组队
                 Confrontation confrontation = this.confrontationService.userMatch(matchId, uid);
@@ -296,7 +296,9 @@ public class MatchController {
                 }
             }else { //允许组队
                 User user = userService.getUserByUid(uid);
+                System.out.println(user.getName());
                 MatchResult userMatch = matchResultService.getUserMatch(user.getName());
+                System.out.println(userMatch.getRound());
                 MatchRound matchRound = this.matchRoundService.getMatchRound(userMatch.getRound(), matchId);
                 message.put("roundName", matchRound.getText());
                 message.put("null", false);
@@ -307,11 +309,11 @@ public class MatchController {
                 message.put("referee", userMatch.getRefereeName());
                 response.setMessage(message);
             }
-        }catch (Exception e) {
-            response.setCode(-1);
-            message.put("error", e);
-            response.setMessage(message);
-        }
+//        }catch (Exception e) {
+//            response.setCode(-1);
+//            message.put("error", e);
+//            response.setMessage(message);
+//        }
         return response;
     }
 

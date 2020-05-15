@@ -30,7 +30,7 @@ public interface MatchResultMapper {
     @Select("select * from `match-result` where id = #{id}")
     MatchResult getResultById(int id);
 
-    @Select("select * from `match-result` where team1=#{name} or team2=#{name} and grade is null")
+    @Select("select * from `match-result` where team1 like concat('%', #{name}, '%') or team2 like concat('%', #{name}, '%') and grade is null")
     MatchResult getUserMatch(String name);
 
 }
